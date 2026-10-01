@@ -1,0 +1,236 @@
+{
+ "contracts": [
+  {
+   "functions": [
+    {
+     "id": "SyntaxZoo.sol::ISyntaxZooCallee::probe(bytes)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "probe",
+     "parameters": [
+      "bytes"
+     ],
+     "returns": [
+      "bytes32"
+     ],
+     "visibility": "external"
+    }
+   ],
+   "id": "SyntaxZoo.sol::ISyntaxZooCallee",
+   "inherits": [],
+   "is_interface": true,
+   "is_library": false,
+   "kind": "interface",
+   "name": "ISyntaxZooCallee",
+   "state_variables": {}
+  },
+  {
+   "functions": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "breakCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "compoundAssignCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "continueCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "doWhileCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "forCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)",
+     "modifiers": [],
+     "mutability": "pure",
+     "name": "ifCase",
+     "parameters": [
+      "bool",
+      "bool"
+     ],
+     "returns": [
+      "bool"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)",
+     "modifiers": [
+      "onlyPositive"
+     ],
+     "mutability": "nonpayable",
+     "name": "modifierCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "namedReturnCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256",
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "slitherConstructorVariables",
+     "parameters": [],
+     "returns": [],
+     "visibility": "internal"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "tryCase",
+     "parameters": [
+      "address",
+      "bytes"
+     ],
+     "returns": [
+      "bool"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "tupleDeclCase",
+     "parameters": [],
+     "returns": [
+      "uint256",
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)",
+     "modifiers": [],
+     "mutability": "pure",
+     "name": "uncheckedCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "whileCase",
+     "parameters": [
+      "uint256"
+     ],
+     "returns": [
+      "uint256"
+     ],
+     "visibility": "public"
+    }
+   ],
+   "id": "SyntaxZoo.sol::SyntaxZoo",
+   "inherits": [],
+   "is_interface": false,
+   "is_library": false,
+   "kind": "contract",
+   "name": "SyntaxZoo",
+   "state_variables": {
+    "SyntaxZoo.sol::SyntaxZoo::counter@1337": {
+     "constant": false,
+     "immutable": false,
+     "name": "counter",
+     "type": "uint256",
+     "visibility": "public"
+    },
+    "SyntaxZoo.sol::SyntaxZoo::owner@1365": {
+     "constant": false,
+     "immutable": false,
+     "name": "owner",
+     "type": "address",
+     "visibility": "public"
+    },
+    "SyntaxZoo.sol::SyntaxZoo::unlocked@1404": {
+     "constant": false,
+     "immutable": false,
+     "name": "unlocked",
+     "type": "bool",
+     "visibility": "internal"
+    }
+   }
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "syntax-zoo",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

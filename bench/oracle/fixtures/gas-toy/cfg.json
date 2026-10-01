@@ -1,0 +1,438 @@
+{
+ "functions": [
+  {
+   "contract": "GasIssues.sol::GasIssues",
+   "entry": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n0",
+   "function": "GasIssues.sol::GasIssues::addToTotal(uint256[])",
+   "nodes": [
+    {
+     "expression": null,
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n0",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 118,
+      "lines": [
+       15,
+       20
+      ],
+      "start": 365
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375",
+       "str": "len"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "MemberAccess",
+       "member": "length",
+       "obj": {
+        "kind": "Identifier",
+        "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::xs@333",
+        "str": "xs"
+       },
+       "str": "xs.length"
+      },
+      "str": "len = xs.length"
+     },
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1",
+     "kind": "NodeType.VARIABLE",
+     "reads": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::xs@333"
+     ],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 23,
+      "lines": [
+       16
+      ],
+      "start": 375
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n4"
+     ],
+     "writes": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375"
+     ]
+    },
+    {
+     "expression": null,
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n2",
+     "kind": "NodeType.ENDLOOP",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 69,
+      "lines": [
+       17,
+       19
+      ],
+      "start": 408
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n3",
+     "kind": "NodeType.STARTLOOP",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 69,
+      "lines": [
+       17,
+       19
+      ],
+      "start": 408
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n4",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 9,
+      "lines": [
+       17
+      ],
+      "start": 413
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n3"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+       "str": "i"
+      },
+      "op": "<",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375",
+       "str": "len"
+      },
+      "str": "i < len"
+     },
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5",
+     "kind": "NodeType.IFLOOP",
+     "reads": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375"
+     ],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 7,
+      "lines": [
+       17
+      ],
+      "start": 424
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n2",
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+       "str": "i"
+      },
+      "str": "++ i"
+     },
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413"
+     ],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 3,
+      "lines": [
+       17
+      ],
+      "start": 433
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5"
+     ],
+     "writes": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::total@83",
+       "str": "total"
+      },
+      "op": "+=",
+      "rhs": {
+       "base": {
+        "kind": "Identifier",
+        "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::xs@333",
+        "str": "xs"
+       },
+       "index": {
+        "kind": "Identifier",
+        "ref": "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+        "str": "i"
+       },
+       "kind": "IndexAccess",
+       "str": "xs[i]"
+      },
+      "str": "total += xs[i]"
+     },
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])::xs@333",
+      "GasIssues.sol::GasIssues::total@83"
+     ],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 14,
+      "lines": [
+       18
+      ],
+      "start": 452
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::addToTotal(uint256[])#n6"
+     ],
+     "writes": [
+      "GasIssues.sol::GasIssues::total@83"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+     "kind": "local",
+     "name": "i",
+     "type": "uint256"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375",
+     "kind": "local",
+     "name": "len",
+     "type": "uint256"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])::total@83",
+     "kind": "state",
+     "name": "total",
+     "type": "uint256"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])::xs@333",
+     "kind": "param",
+     "name": "xs",
+     "type": "uint256[]"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::balances@109",
+     "kind": "state",
+     "name": "balances",
+     "type": "mapping(address => uint256)"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::total@83",
+     "kind": "state",
+     "name": "total",
+     "type": "uint256"
+    }
+   ]
+  },
+  {
+   "contract": "GasIssues.sol::GasIssues",
+   "entry": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n0",
+   "function": "GasIssues.sol::GasIssues::andInIf(bool,bool)",
+   "nodes": [
+    {
+     "expression": null,
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n0",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 86,
+      "lines": [
+       8,
+       13
+      ],
+      "start": 221
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n1",
+     "kind": "NodeType.ENDIF",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 48,
+      "lines": [
+       9,
+       11
+      ],
+      "start": 231
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::andInIf(bool,bool)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::andInIf(bool,bool)::a@176",
+       "str": "a"
+      },
+      "op": "&&",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "GasIssues.sol::GasIssues::andInIf(bool,bool)::b@184",
+       "str": "b"
+      },
+      "str": "a && b"
+     },
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2",
+     "kind": "NodeType.IF",
+     "reads": [
+      "GasIssues.sol::GasIssues::andInIf(bool,bool)::a@176",
+      "GasIssues.sol::GasIssues::andInIf(bool,bool)::b@184"
+     ],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 6,
+      "lines": [
+       9
+      ],
+      "start": 235
+     },
+     "successors": [
+      "GasIssues.sol::GasIssues::andInIf(bool,bool)#n1",
+      "GasIssues.sol::GasIssues::andInIf(bool,bool)#n3"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "Literal",
+      "str": "true",
+      "type": "bool",
+      "value": "true"
+     },
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n3",
+     "kind": "NodeType.RETURN",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 11,
+      "lines": [
+       10
+      ],
+      "start": 257
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "Literal",
+      "str": "false",
+      "type": "bool",
+      "value": "false"
+     },
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n4",
+     "kind": "NodeType.RETURN",
+     "reads": [],
+     "source": {
+      "file": "GasIssues.sol",
+      "length": 12,
+      "lines": [
+       12
+      ],
+      "start": 288
+     },
+     "successors": [],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)::<anon-3>@215",
+     "kind": "return",
+     "name": "",
+     "type": "bool"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)::a@176",
+     "kind": "param",
+     "name": "a",
+     "type": "bool"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)::b@184",
+     "kind": "param",
+     "name": "b",
+     "type": "bool"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::balances@109",
+     "kind": "state",
+     "name": "balances",
+     "type": "mapping(address => uint256)"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::total@83",
+     "kind": "state",
+     "name": "total",
+     "type": "uint256"
+    }
+   ]
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "gas-toy",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "functions": [
+  {
+   "function": "GasIssues.sol::GasIssues::addToTotal(uint256[])",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+    "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375",
+    "GasIssues.sol::GasIssues::addToTotal(uint256[])::xs@333",
+    "GasIssues.sol::GasIssues::total@83"
+   ],
+   "solidity_calls": [],
+   "state_reads": [
+    "GasIssues.sol::GasIssues::total@83"
+   ],
+   "state_writes": [
+    "GasIssues.sol::GasIssues::total@83"
+   ],
+   "writes": [
+    "GasIssues.sol::GasIssues::addToTotal(uint256[])::i@413",
+    "GasIssues.sol::GasIssues::addToTotal(uint256[])::len@375",
+    "GasIssues.sol::GasIssues::total@83"
+   ]
+  },
+  {
+   "function": "GasIssues.sol::GasIssues::andInIf(bool,bool)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "GasIssues.sol::GasIssues::andInIf(bool,bool)::a@176",
+    "GasIssues.sol::GasIssues::andInIf(bool,bool)::b@184"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": []
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "gas-toy",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

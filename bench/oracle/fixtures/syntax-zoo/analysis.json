@@ -1,0 +1,277 @@
+{
+ "functions": [
+  {
+   "function": "SyntaxZoo.sol::ISyntaxZooCallee::probe(bytes)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": []
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325",
+    "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+    "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::n@2279"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325",
+    "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+    "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::v@3654"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555",
+    "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+    "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::n@2528"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555",
+    "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138",
+    "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161",
+    "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::n@2111"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138",
+    "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+    "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::n@1799",
+    "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+    "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::a@1580",
+    "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::b@1588"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": []
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [
+    {
+     "callee": "SyntaxZoo.sol::SyntaxZoo::onlyPositive(uint256)",
+     "callsite": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n0"
+    }
+   ],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+    "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::v@3220"
+   ],
+   "solidity_calls": [],
+   "state_reads": [
+    "SyntaxZoo.sol::SyntaxZoo::counter@1337"
+   ],
+   "state_writes": [
+    "SyntaxZoo.sol::SyntaxZoo::counter@1337"
+   ],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::counter@1337"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529",
+    "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546",
+    "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::v@3502"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529",
+    "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()::msg.sender@2"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [
+    "SyntaxZoo.sol::SyntaxZoo::owner@1365"
+   ],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::owner@1365"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)",
+   "high_level_calls": [
+    {
+     "callee": "unresolved",
+     "callsite": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n2",
+     "member": "probe"
+    }
+   ],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::TMP_17@4",
+    "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930",
+    "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::payload@2890",
+    "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::reason@3040",
+    "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::target@2874"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371",
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382",
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404",
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371",
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382",
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404",
+    "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::x@2748",
+    "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780"
+   ]
+  },
+  {
+   "function": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)",
+   "high_level_calls": [],
+   "internal_calls": [],
+   "library_calls": [],
+   "low_level_calls": [],
+   "reads": [
+    "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972",
+    "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995",
+    "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::n@1945"
+   ],
+   "solidity_calls": [],
+   "state_reads": [],
+   "state_writes": [],
+   "writes": [
+    "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972",
+    "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995"
+   ]
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "syntax-zoo",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

@@ -1,0 +1,27 @@
+node_modules/
+dist/
+*.log
+staging/
+
+# oracle: regenerable pickled bundles (fixtures themselves are frozen artifacts)
+bench/oracle/fixtures/bundles/
+
+# bench results are regenerable measurement output
+bench/results/
+
+# large corpus oracle bodies are byte-reproducible via
+#   `npm run oracle -- export bench/corpus.json bench/oracle/fixtures`
+#   + `python3 bench/oracle/make_inputs.py bench/corpus.json bench/oracle/fixtures`
+# provenance.json is kept tracked so input drift stays detectable
+bench/oracle/fixtures/v2-core/*
+bench/oracle/fixtures/v3-core/*
+bench/oracle/fixtures/solmate/*
+bench/oracle/fixtures/openzeppelin/*
+bench/oracle/fixtures/solidity-lib/*
+!bench/oracle/fixtures/v2-core/provenance.json
+!bench/oracle/fixtures/v3-core/provenance.json
+!bench/oracle/fixtures/solmate/provenance.json
+!bench/oracle/fixtures/openzeppelin/provenance.json
+!bench/oracle/fixtures/solidity-lib/provenance.json
+__pycache__/
+*.pyc

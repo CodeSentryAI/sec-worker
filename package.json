@@ -1,0 +1,23 @@
+{
+  "name": "sec-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Sandboxed security-scan worker: bwrap-isolated detectors (lockbud-stable, peCatch/slither) producing normalized findings",
+  "scripts": {
+    "detect": "tsx src/run.ts",
+    "selftest": "tsx src/selftest.ts",
+    "bench": "tsx src/bench/run.ts",
+    "oracle": "tsx src/oracle/run.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

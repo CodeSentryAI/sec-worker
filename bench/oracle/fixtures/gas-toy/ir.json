@@ -1,0 +1,110 @@
+{
+ "functions": [
+  {
+   "function": "GasIssues.sol::GasIssues::addToTotal(uint256[])",
+   "nodes": [
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1.i0",
+       "op": "Length",
+       "str": "REF_0 -> LENGTH xs"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1.i1",
+       "op": "Assignment",
+       "str": "len(uint256) := REF_0(uint256)"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1"
+    },
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5.i0",
+       "op": "Binary",
+       "str": "TMP_1(bool) = i < len"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5.i1",
+       "op": "Condition",
+       "str": "CONDITION TMP_1"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5"
+    },
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n6.i0",
+       "op": "Binary",
+       "str": "i(uint256) = i (c)+ 1"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n6"
+    },
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7.i0",
+       "op": "Index",
+       "str": "REF_1(uint256) -> xs[i]"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7.i1",
+       "op": "Binary",
+       "str": "total(uint256) = total (c)+ REF_1"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7"
+    }
+   ]
+  },
+  {
+   "function": "GasIssues.sol::GasIssues::andInIf(bool,bool)",
+   "nodes": [
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2.i0",
+       "op": "Binary",
+       "str": "TMP_0(bool) = a && b"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2.i1",
+       "op": "Condition",
+       "str": "CONDITION TMP_0"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2"
+    },
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n3.i0",
+       "op": "Return",
+       "str": "RETURN True"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n3"
+    },
+    {
+     "ir": [
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n4.i0",
+       "op": "Return",
+       "str": "RETURN False"
+      }
+     ],
+     "node": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n4"
+    }
+   ]
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "gas-toy",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

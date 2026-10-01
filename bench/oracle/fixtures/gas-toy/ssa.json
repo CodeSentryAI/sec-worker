@@ -1,0 +1,125 @@
+{
+ "functions": [
+  {
+   "function": "GasIssues.sol::GasIssues::addToTotal(uint256[])",
+   "nodes": [
+    {
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n0",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n0.i0",
+       "op": "Phi",
+       "str": "total_1(uint256) := \u03d5(['total_0', 'total_2'])"
+      }
+     ]
+    },
+    {
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1.i0",
+       "op": "Length",
+       "str": "REF_0 -> LENGTH xs_1"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n1.i1",
+       "op": "Assignment",
+       "str": "len_1(uint256) := REF_0(uint256)"
+      }
+     ]
+    },
+    {
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5.i0",
+       "op": "Phi",
+       "str": "i_1(uint256) := \u03d5(['i_0', 'i_2'])"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5.i1",
+       "op": "Binary",
+       "str": "TMP_1(bool) = i_1 < len_1"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n5.i2",
+       "op": "Condition",
+       "str": "CONDITION TMP_1"
+      }
+     ]
+    },
+    {
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n6",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n6.i0",
+       "op": "Binary",
+       "str": "i_2(uint256) = i_1 (c)+ 1"
+      }
+     ]
+    },
+    {
+     "node": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7.i0",
+       "op": "Index",
+       "str": "REF_1(uint256) -> xs_1[i_1]"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])#n7.i1",
+       "op": "Binary",
+       "str": "total_2(uint256) = total_1 (c)+ REF_1"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "function": "GasIssues.sol::GasIssues::andInIf(bool,bool)",
+   "nodes": [
+    {
+     "node": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2.i0",
+       "op": "Binary",
+       "str": "TMP_0(bool) = a_1 && b_1"
+      },
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n2.i1",
+       "op": "Condition",
+       "str": "CONDITION TMP_0"
+      }
+     ]
+    },
+    {
+     "node": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n3",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n3.i0",
+       "op": "Return",
+       "str": "RETURN True"
+      }
+     ]
+    },
+    {
+     "node": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n4",
+     "ssa": [
+      {
+       "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)#n4.i0",
+       "op": "Return",
+       "str": "RETURN False"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "gas-toy",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "language": "Solidity",
+ "settings": {
+  "optimizer": {
+   "enabled": false
+  },
+  "outputSelection": {
+   "*": {
+    "": [
+     "ast"
+    ],
+    "*": [
+     "abi"
+    ]
+   }
+  }
+ },
+ "sources": {
+  "SyntaxZoo.sol": {
+   "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.19;\n\n/**\n * syntax-zoo \u2014 one minimal function per Solidity construct that the R4.1 CFG\n * builder must lower.\n *\n * Purpose: the real benchmark corpus contains these constructs scattered\n * across large files, so a lowering gap shows up as thousands of diffs whose\n * root cause is ambiguous. Here each construct is isolated, so a red function\n * names its own missing lowering rule. Add a case per construct as the builder\n * grows; the differential gate is per-repo, so closing one function at a time\n * is directly measurable.\n *\n * Constructs covered here:\n *   ifCase / elseCase ....... if / else, if-else-if chains\n *   forCase .................. for with init/cond/post\n *   whileCase ................ while loop\n *   doWhileCase .............. do-while loop\n *   breakCase / continueCase . break and continue out of nested loops\n *   uncheckedCase ............ unchecked block\n *   tryCase .................. try/catch with a reverting external call\n *   modifierCase ............. modifier application (body NOT inlined)\n *   tupleDeclCase ............ tuple variable declaration + assignment\n *   namedReturnCase .......... named return parameters (implicit return)\n *   compoundAssignCase ....... += -= *= /= and ++/-- in expression position\n */\ncontract SyntaxZoo {\n    uint256 public counter;\n    address public owner = msg.sender;\n    bool internal unlocked;\n\n    event Jumped(uint256 value);\n\n    modifier onlyPositive(uint256 v) {\n        require(v > 0, \"non-positive\");\n        _;\n    }\n\n    function ifCase(bool a, bool b) public pure returns (bool) {\n        if (a) {\n            return true;\n        } else if (b) {\n            return false;\n        } else {\n            return a && b;\n        }\n    }\n\n    function forCase(uint256 n) public returns (uint256 sum) {\n        for (uint256 i = 0; i < n; i++) {\n            sum += i;\n        }\n    }\n\n    function whileCase(uint256 n) public returns (uint256 acc) {\n        uint256 i;\n        while (i < n) {\n            acc += i;\n            i++;\n        }\n    }\n\n    function doWhileCase(uint256 n) public returns (uint256 acc) {\n        uint256 i;\n        do {\n            acc += i;\n            i++;\n        } while (i < n);\n    }\n\n    function breakCase(uint256 n) public returns (uint256) {\n        uint256 acc;\n        for (uint256 i = 0; i < n; i++) {\n            if (i == 3) {\n                break;\n            }\n            acc += i;\n        }\n        return acc;\n    }\n\n    function continueCase(uint256 n) public returns (uint256 acc) {\n        for (uint256 i = 0; i < n; i++) {\n            if (i % 2 == 0) {\n                continue;\n            }\n            acc += i;\n        }\n    }\n\n    function uncheckedCase(uint256 x) public pure returns (uint256 y) {\n        unchecked {\n            y = x + 1;\n        }\n    }\n\n    function tryCase(address target, bytes calldata payload) public returns (bool ok) {\n        try ISyntaxZooCallee(target).probe(payload) {\n            ok = true;\n        } catch Error(string memory reason) {\n            emit Jumped(bytes(reason).length);\n            ok = false;\n        } catch {\n            ok = false;\n        }\n    }\n\n    function modifierCase(uint256 v) public onlyPositive(v) returns (uint256) {\n        counter = v;\n        return counter;\n    }\n\n    function tupleDeclCase() public returns (uint256 a, uint256 b) {\n        (uint256 x, uint256 y) = (1, 2);\n        a = x;\n        b = y;\n    }\n\n    function namedReturnCase(uint256 v) public returns (uint256 doubled, uint256 tripled) {\n        doubled = v * 2;\n        tripled = v * 3;\n    }\n\n    function compoundAssignCase(uint256 v) public returns (uint256) {\n        uint256 acc = v;\n        acc += 1;\n        acc -= 2;\n        acc *= 3;\n        acc /= 4;\n        acc++;\n        --acc;\n        return acc;\n    }\n}\n\ninterface ISyntaxZooCallee {\n    function probe(bytes calldata payload) external returns (bytes32);\n}"
+  }
+ }
+}

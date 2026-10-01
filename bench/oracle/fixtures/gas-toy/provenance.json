@@ -1,0 +1,12 @@
+{
+ "input_sha256": "70368b403a517c8424bffb04be5fd84c64929254d924bcdd231b27b04d7f49af",
+ "oracle_slither_version": "0.11.6",
+ "schema_version": 2,
+ "settings_sha256": "bd8c6e4d8d34162b7ad6eb299f32cc2cd6f8250bc0c9098159b92445c658e6d6",
+ "solc_output_sha256": "d32e8243ae8660ba0a73bdf88ff4164dc903bc86e2836d32134151bd464e9b23",
+ "solc_version": "0.8.28",
+ "source_paths": [
+  "GasIssues.sol"
+ ],
+ "sources_sha256": "c96d91b5975c874f7f7ccd7a04359da55d965a29754b77ab842c9020d7958f5c/75cd584437fdd422b81ebc79a432e249"
+}

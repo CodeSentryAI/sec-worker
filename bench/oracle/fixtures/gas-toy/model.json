@@ -1,0 +1,61 @@
+{
+ "contracts": [
+  {
+   "functions": [
+    {
+     "id": "GasIssues.sol::GasIssues::addToTotal(uint256[])",
+     "modifiers": [],
+     "mutability": "nonpayable",
+     "name": "addToTotal",
+     "parameters": [
+      "uint256[]"
+     ],
+     "returns": [],
+     "visibility": "external"
+    },
+    {
+     "id": "GasIssues.sol::GasIssues::andInIf(bool,bool)",
+     "modifiers": [],
+     "mutability": "pure",
+     "name": "andInIf",
+     "parameters": [
+      "bool",
+      "bool"
+     ],
+     "returns": [
+      "bool"
+     ],
+     "visibility": "external"
+    }
+   ],
+   "id": "GasIssues.sol::GasIssues",
+   "inherits": [],
+   "is_interface": false,
+   "is_library": false,
+   "kind": "contract",
+   "name": "GasIssues",
+   "state_variables": {
+    "GasIssues.sol::GasIssues::balances@109": {
+     "constant": false,
+     "immutable": false,
+     "name": "balances",
+     "type": "mapping(address => uint256)",
+     "visibility": "public"
+    },
+    "GasIssues.sol::GasIssues::total@83": {
+     "constant": false,
+     "immutable": false,
+     "name": "total",
+     "type": "uint256",
+     "visibility": "public"
+    }
+   }
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "gas-toy",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}

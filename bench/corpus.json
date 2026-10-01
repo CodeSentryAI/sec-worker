@@ -1,0 +1,11 @@
+{
+  "v2-core": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/v2-core-master", "sourceDir": "contracts", "solc": "0.5.16" },
+  "v3-core": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/v3-core-main", "sourceDir": "contracts", "solc": "0.7.6" },
+  "solmate": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/solmate-main", "sourceDir": "src", "solc": "auto" },
+  "openzeppelin": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/openzeppelin-contracts-master", "sourceDir": "contracts", "solc": "auto" },
+  "solidity-lib": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/solidity-lib", "sourceDir": "contracts", "solc": "auto" },
+  "seadrop": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/seadrop-main", "sourceDir": "src", "solc": "auto" },
+  "seaport": { "path": "/home/chain-fox/Projects/solidity-sec/code/peCatch/benchmark/seaport-main", "sourceDir": "contracts", "solc": "auto" },
+  "gas-toy": { "path": "/home/chain-fox/Projects/BW2/sec-worker/tests/fixtures/solidity-gas", "sourceDir": ".", "solc": "auto" },
+  "syntax-zoo": { "path": "/home/chain-fox/Projects/BW2/sec-worker/tests/fixtures/solidity-syntax-zoo", "sourceDir": ".", "solc": "auto" }
+}

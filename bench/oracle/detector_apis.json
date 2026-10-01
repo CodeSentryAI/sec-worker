@@ -1,0 +1,871 @@
+{
+ "slither_version": "0.11.6",
+ "detectors_scanned": 98,
+ "per_detector": {
+  "abstract": [
+   "contract inheritance",
+   "modifiers"
+  ],
+  "abstract_detector": [],
+  "all_detectors": [
+   "low_level_calls"
+  ],
+  "arbitrary_send_erc20_no_permit": [],
+  "arbitrary_send_erc20_permit": [],
+  "arbitrary_send_eth": [
+   "data_dependency",
+   "function.nodes (CFG iteration)",
+   "is_protected (auth check)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "taint"
+  ],
+  "array_by_reference": [
+   "high_level_calls",
+   "internal_calls",
+   "variables_written"
+  ],
+  "array_length_assignment": [
+   "IR lvalue",
+   "IR read set",
+   "data_dependency",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "taint"
+  ],
+  "assembly": [
+   "function.nodes (CFG iteration)"
+  ],
+  "assert_state_change": [
+   "internal_calls",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "state_variables_written",
+   "variables_written"
+  ],
+  "backdoor": [],
+  "bad_prng": [
+   "IR lvalue",
+   "data_dependency",
+   "function.nodes (CFG iteration)",
+   "node.irs_ssa (SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "block_timestamp": [
+   "IR read set",
+   "data_dependency",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "variables_read"
+  ],
+  "boolean_constant_equality": [
+   "IR read set",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "boolean_constant_misuse": [
+   "IR read set",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "builtin_symbols": [],
+  "cache_array_length": [
+   "function.nodes (CFG iteration)",
+   "node.expression",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance"
+  ],
+  "calls_in_loop": [
+   "function.entry_point",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance"
+  ],
+  "chainlink_feed_registry": [
+   "high_level_calls"
+  ],
+  "chronicle_unchecked_price": [
+   "IR lvalue",
+   "IR read set",
+   "high_level_calls",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance"
+  ],
+  "const_functions_asm": [],
+  "const_functions_state": [
+   "state_variables_written",
+   "variables_written"
+  ],
+  "constant_pragma": [],
+  "controlled_delegatecall": [
+   "data_dependency",
+   "is_protected (auth check)",
+   "low_level_calls",
+   "taint"
+  ],
+  "costly_operations_in_loop": [
+   "IR lvalue",
+   "function.entry_point",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)"
+  ],
+  "could_be_constant": [],
+  "could_be_immutable": [],
+  "cyclomatic_complexity": [],
+  "dead_code": [
+   "function.entry_point",
+   "internal_calls",
+   "library_calls"
+  ],
+  "delegatecall_in_loop": [
+   "function.entry_point",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)"
+  ],
+  "deprecated_calls": [
+   "function.nodes (CFG iteration)",
+   "node.expression",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "divide_before_multiply": [
+   "IR lvalue",
+   "IR read set",
+   "function.entry_point",
+   "internal_calls",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance",
+   "taint"
+  ],
+  "encode_packed": [
+   "data_dependency",
+   "solidity_calls",
+   "taint"
+  ],
+  "enum_conversion": [
+   "SourceMapping/spans",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "external_function": [
+   "contract inheritance",
+   "function.nodes (CFG iteration)",
+   "internal_calls",
+   "node.irs (non-SSA IR)",
+   "solidity_calls",
+   "variables_written"
+  ],
+  "function_init_state_variables": [
+   "node.expression"
+  ],
+  "gelato_unprotected_randomness": [
+   "contract inheritance",
+   "function.entry_point",
+   "internal_calls",
+   "is_protected (auth check)",
+   "slithir ops isinstance"
+  ],
+  "incorrect_erc20_interface": [],
+  "incorrect_erc721_interface": [],
+  "incorrect_exp": [
+   "function.nodes (CFG iteration)",
+   "modifiers",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "incorrect_return": [
+   "internal_calls",
+   "node.sons/fathers (CFG edges)",
+   "solidity_calls"
+  ],
+  "incorrect_solc": [],
+  "incorrect_strict_equality": [
+   "IR lvalue",
+   "data_dependency",
+   "function.nodes (CFG iteration)",
+   "modifiers",
+   "node.irs_ssa (SSA IR)",
+   "slithir ops isinstance",
+   "taint"
+  ],
+  "incorrect_using_for": [
+   "SourceMapping/spans",
+   "contract inheritance"
+  ],
+  "local": [
+   "contract inheritance",
+   "modifiers"
+  ],
+  "locked_ether": [
+   "function.nodes (CFG iteration)",
+   "internal_calls",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "low_level_calls": [
+   "low_level_calls",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "mapping_deletion": [
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "missing_events_access_control": [
+   "data_dependency",
+   "function.entry_point",
+   "function.nodes (CFG iteration)",
+   "is_protected (auth check)",
+   "modifiers",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "state_variables_read",
+   "state_variables_written",
+   "taint",
+   "variables_read",
+   "variables_written"
+  ],
+  "missing_events_arithmetic": [
+   "data_dependency",
+   "function.entry_point",
+   "function.nodes (CFG iteration)",
+   "is_protected (auth check)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "state_variables_read",
+   "state_variables_written",
+   "taint",
+   "variables_read",
+   "variables_written"
+  ],
+  "missing_zero_address_validation": [
+   "data_dependency",
+   "function.entry_point",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance",
+   "state_variables_written",
+   "taint",
+   "variables_read",
+   "variables_written"
+  ],
+  "modifier": [
+   "function.entry_point",
+   "internal_calls",
+   "modifiers",
+   "node.sons/fathers (CFG edges)"
+  ],
+  "msg_value_in_loop": [
+   "IR read set",
+   "function.entry_point",
+   "node.expression",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)"
+  ],
+  "msg_value_in_nonpayable": [
+   "IR read set",
+   "function.entry_point",
+   "function.nodes (CFG iteration)",
+   "modifiers",
+   "node.irs (non-SSA IR)"
+  ],
+  "multiple_constructor_schemes": [],
+  "name_reused": [
+   "contract inheritance"
+  ],
+  "naming_convention": [
+   "variables_read"
+  ],
+  "optimism_deprecation": [
+   "high_level_calls",
+   "node.expression",
+   "slithir ops isinstance"
+  ],
+  "out_of_order_retryable": [
+   "function.entry_point",
+   "internal_calls",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance"
+  ],
+  "permit_domain_signature_collision": [
+   "function.entry_point"
+  ],
+  "predeclaration_usage_local": [
+   "function.nodes (CFG iteration)",
+   "node.sons/fathers (CFG edges)",
+   "variables_read",
+   "variables_written"
+  ],
+  "protected_variable": [
+   "function.entry_point",
+   "internal_calls",
+   "state_variables_written",
+   "variables_written"
+  ],
+  "public_mapping_nested": [],
+  "pyth_deprecated_functions": [
+   "high_level_calls"
+  ],
+  "pyth_unchecked": [
+   "IR lvalue",
+   "IR read set",
+   "high_level_calls",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance"
+  ],
+  "redundant_statements": [
+   "function.nodes (CFG iteration)",
+   "node.expression"
+  ],
+  "reentrancy": [
+   "IR read set",
+   "function.entry_point",
+   "internal_calls",
+   "node.expression",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance",
+   "state_variables_read",
+   "state_variables_written",
+   "variables_read",
+   "variables_written"
+  ],
+  "return_bomb": [
+   "data_dependency",
+   "high_level_calls",
+   "low_level_calls",
+   "slithir ops isinstance",
+   "taint"
+  ],
+  "return_instead_of_leave": [
+   "solidity_calls"
+  ],
+  "reused_base_constructor": [
+   "contract inheritance"
+  ],
+  "rtlo": [],
+  "shift_parameter_mixup": [
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "state": [
+   "contract inheritance",
+   "modifiers"
+  ],
+  "storage_ABIEncoderV2_array": [
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "storage_signed_integer_array": [
+   "IR lvalue",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "suicidal": [
+   "internal_calls",
+   "is_protected (auth check)"
+  ],
+  "tautological_compare": [
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "token": [
+   "data_dependency",
+   "function.entry_point",
+   "slithir ops isinstance"
+  ],
+  "too_many_digits": [
+   "IR read set",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)"
+  ],
+  "tx_origin": [
+   "function.nodes (CFG iteration)",
+   "variables_read"
+  ],
+  "type_based_tautology": [
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "unary": [
+   "function.nodes (CFG iteration)",
+   "node.expression",
+   "slithir ops isinstance"
+  ],
+  "unchecked_low_level_return_values": [
+   "IR lvalue",
+   "IR read set",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "unimplemented": [],
+  "unimplemented_interface": [
+   "contract inheritance",
+   "function.entry_point"
+  ],
+  "unindexed_event_address": [],
+  "unindexed_event_parameters": [],
+  "uninitialized_function_ptr_in_constructor": [
+   "IR lvalue",
+   "function.entry_point",
+   "function.nodes (CFG iteration)",
+   "node.irs_ssa (SSA IR)"
+  ],
+  "uninitialized_local_variables": [
+   "function.entry_point",
+   "node.sons/fathers (CFG edges)",
+   "variables_read",
+   "variables_written"
+  ],
+  "uninitialized_state_variables": [
+   "function.nodes (CFG iteration)",
+   "modifiers",
+   "node.expression",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance",
+   "state_variables_read",
+   "state_variables_written",
+   "variables_read",
+   "variables_written"
+  ],
+  "uninitialized_storage_variables": [
+   "function.entry_point",
+   "node.sons/fathers (CFG edges)",
+   "variables_read",
+   "variables_written"
+  ],
+  "unprotected_upgradeable": [
+   "function.entry_point",
+   "internal_calls",
+   "low_level_calls",
+   "modifiers",
+   "solidity_calls",
+   "state_variables_written",
+   "variables_written"
+  ],
+  "unused_import": [
+   "SourceMapping/spans"
+  ],
+  "unused_return_values": [
+   "IR lvalue",
+   "IR read set",
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)",
+   "slithir ops isinstance"
+  ],
+  "unused_state_variables": [
+   "modifiers",
+   "node.expression",
+   "state_variables_read",
+   "state_variables_written",
+   "variables_read",
+   "variables_written"
+  ],
+  "var_read_using_this": [
+   "high_level_calls"
+  ],
+  "void_constructor": [
+   "function.nodes (CFG iteration)",
+   "node.irs (non-SSA IR)"
+  ],
+  "write_after_write": [
+   "IR lvalue",
+   "IR read set",
+   "function.entry_point",
+   "high_level_calls",
+   "library_calls",
+   "node.irs (non-SSA IR)",
+   "node.sons/fathers (CFG edges)",
+   "slithir ops isinstance",
+   "state_variables_read",
+   "variables_read"
+  ]
+ },
+ "coverage": {
+  "slithir ops isinstance": [
+   "arbitrary_send_eth",
+   "array_length_assignment",
+   "assert_state_change",
+   "bad_prng",
+   "block_timestamp",
+   "boolean_constant_equality",
+   "boolean_constant_misuse",
+   "cache_array_length",
+   "calls_in_loop",
+   "chronicle_unchecked_price",
+   "deprecated_calls",
+   "divide_before_multiply",
+   "enum_conversion",
+   "gelato_unprotected_randomness",
+   "incorrect_exp",
+   "incorrect_strict_equality",
+   "locked_ether",
+   "low_level_calls",
+   "mapping_deletion",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "optimism_deprecation",
+   "out_of_order_retryable",
+   "pyth_unchecked",
+   "reentrancy",
+   "return_bomb",
+   "shift_parameter_mixup",
+   "storage_ABIEncoderV2_array",
+   "storage_signed_integer_array",
+   "tautological_compare",
+   "token",
+   "type_based_tautology",
+   "unary",
+   "unchecked_low_level_return_values",
+   "uninitialized_state_variables",
+   "unused_return_values",
+   "write_after_write"
+  ],
+  "node.irs (non-SSA IR)": [
+   "arbitrary_send_eth",
+   "array_length_assignment",
+   "assert_state_change",
+   "block_timestamp",
+   "boolean_constant_equality",
+   "boolean_constant_misuse",
+   "calls_in_loop",
+   "chronicle_unchecked_price",
+   "costly_operations_in_loop",
+   "delegatecall_in_loop",
+   "deprecated_calls",
+   "divide_before_multiply",
+   "enum_conversion",
+   "external_function",
+   "incorrect_exp",
+   "locked_ether",
+   "low_level_calls",
+   "mapping_deletion",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "msg_value_in_loop",
+   "msg_value_in_nonpayable",
+   "out_of_order_retryable",
+   "pyth_unchecked",
+   "reentrancy",
+   "shift_parameter_mixup",
+   "storage_ABIEncoderV2_array",
+   "storage_signed_integer_array",
+   "tautological_compare",
+   "too_many_digits",
+   "type_based_tautology",
+   "unchecked_low_level_return_values",
+   "uninitialized_state_variables",
+   "unused_return_values",
+   "void_constructor",
+   "write_after_write"
+  ],
+  "function.nodes (CFG iteration)": [
+   "arbitrary_send_eth",
+   "array_length_assignment",
+   "assembly",
+   "bad_prng",
+   "block_timestamp",
+   "boolean_constant_equality",
+   "boolean_constant_misuse",
+   "cache_array_length",
+   "deprecated_calls",
+   "enum_conversion",
+   "external_function",
+   "incorrect_exp",
+   "incorrect_strict_equality",
+   "locked_ether",
+   "mapping_deletion",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "msg_value_in_nonpayable",
+   "predeclaration_usage_local",
+   "redundant_statements",
+   "shift_parameter_mixup",
+   "storage_ABIEncoderV2_array",
+   "storage_signed_integer_array",
+   "tautological_compare",
+   "too_many_digits",
+   "tx_origin",
+   "type_based_tautology",
+   "unary",
+   "unchecked_low_level_return_values",
+   "uninitialized_function_ptr_in_constructor",
+   "uninitialized_state_variables",
+   "unused_return_values",
+   "void_constructor"
+  ],
+  "function.entry_point": [
+   "calls_in_loop",
+   "costly_operations_in_loop",
+   "dead_code",
+   "delegatecall_in_loop",
+   "divide_before_multiply",
+   "gelato_unprotected_randomness",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "modifier",
+   "msg_value_in_loop",
+   "msg_value_in_nonpayable",
+   "out_of_order_retryable",
+   "permit_domain_signature_collision",
+   "protected_variable",
+   "reentrancy",
+   "token",
+   "unimplemented_interface",
+   "uninitialized_function_ptr_in_constructor",
+   "uninitialized_local_variables",
+   "uninitialized_storage_variables",
+   "unprotected_upgradeable",
+   "write_after_write"
+  ],
+  "node.sons/fathers (CFG edges)": [
+   "cache_array_length",
+   "calls_in_loop",
+   "chronicle_unchecked_price",
+   "costly_operations_in_loop",
+   "delegatecall_in_loop",
+   "divide_before_multiply",
+   "incorrect_return",
+   "missing_zero_address_validation",
+   "modifier",
+   "msg_value_in_loop",
+   "out_of_order_retryable",
+   "predeclaration_usage_local",
+   "pyth_unchecked",
+   "reentrancy",
+   "uninitialized_local_variables",
+   "uninitialized_storage_variables",
+   "write_after_write"
+  ],
+  "variables_written": [
+   "array_by_reference",
+   "assert_state_change",
+   "const_functions_state",
+   "external_function",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "predeclaration_usage_local",
+   "protected_variable",
+   "reentrancy",
+   "uninitialized_local_variables",
+   "uninitialized_state_variables",
+   "uninitialized_storage_variables",
+   "unprotected_upgradeable",
+   "unused_state_variables"
+  ],
+  "internal_calls": [
+   "array_by_reference",
+   "assert_state_change",
+   "dead_code",
+   "divide_before_multiply",
+   "external_function",
+   "gelato_unprotected_randomness",
+   "incorrect_return",
+   "locked_ether",
+   "modifier",
+   "out_of_order_retryable",
+   "protected_variable",
+   "reentrancy",
+   "suicidal",
+   "unprotected_upgradeable"
+  ],
+  "IR read set": [
+   "array_length_assignment",
+   "block_timestamp",
+   "boolean_constant_equality",
+   "boolean_constant_misuse",
+   "chronicle_unchecked_price",
+   "divide_before_multiply",
+   "msg_value_in_loop",
+   "msg_value_in_nonpayable",
+   "pyth_unchecked",
+   "reentrancy",
+   "too_many_digits",
+   "unchecked_low_level_return_values",
+   "unused_return_values",
+   "write_after_write"
+  ],
+  "variables_read": [
+   "block_timestamp",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "naming_convention",
+   "predeclaration_usage_local",
+   "reentrancy",
+   "tx_origin",
+   "uninitialized_local_variables",
+   "uninitialized_state_variables",
+   "uninitialized_storage_variables",
+   "unused_state_variables",
+   "write_after_write"
+  ],
+  "data_dependency": [
+   "arbitrary_send_eth",
+   "array_length_assignment",
+   "bad_prng",
+   "block_timestamp",
+   "controlled_delegatecall",
+   "encode_packed",
+   "incorrect_strict_equality",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "return_bomb",
+   "token"
+  ],
+  "IR lvalue": [
+   "array_length_assignment",
+   "bad_prng",
+   "chronicle_unchecked_price",
+   "costly_operations_in_loop",
+   "divide_before_multiply",
+   "incorrect_strict_equality",
+   "pyth_unchecked",
+   "storage_signed_integer_array",
+   "unchecked_low_level_return_values",
+   "uninitialized_function_ptr_in_constructor",
+   "unused_return_values",
+   "write_after_write"
+  ],
+  "modifiers": [
+   "abstract",
+   "incorrect_exp",
+   "incorrect_strict_equality",
+   "local",
+   "missing_events_access_control",
+   "modifier",
+   "msg_value_in_nonpayable",
+   "state",
+   "uninitialized_state_variables",
+   "unprotected_upgradeable",
+   "unused_state_variables"
+  ],
+  "node.expression": [
+   "cache_array_length",
+   "deprecated_calls",
+   "function_init_state_variables",
+   "msg_value_in_loop",
+   "optimism_deprecation",
+   "redundant_statements",
+   "reentrancy",
+   "unary",
+   "uninitialized_state_variables",
+   "unused_state_variables"
+  ],
+  "state_variables_written": [
+   "assert_state_change",
+   "const_functions_state",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "protected_variable",
+   "reentrancy",
+   "uninitialized_state_variables",
+   "unprotected_upgradeable",
+   "unused_state_variables"
+  ],
+  "taint": [
+   "arbitrary_send_eth",
+   "array_length_assignment",
+   "controlled_delegatecall",
+   "divide_before_multiply",
+   "encode_packed",
+   "incorrect_strict_equality",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "missing_zero_address_validation",
+   "return_bomb"
+  ],
+  "high_level_calls": [
+   "array_by_reference",
+   "chainlink_feed_registry",
+   "chronicle_unchecked_price",
+   "optimism_deprecation",
+   "pyth_deprecated_functions",
+   "pyth_unchecked",
+   "return_bomb",
+   "var_read_using_this",
+   "write_after_write"
+  ],
+  "contract inheritance": [
+   "abstract",
+   "external_function",
+   "gelato_unprotected_randomness",
+   "incorrect_using_for",
+   "local",
+   "name_reused",
+   "reused_base_constructor",
+   "state",
+   "unimplemented_interface"
+  ],
+  "state_variables_read": [
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "reentrancy",
+   "uninitialized_state_variables",
+   "unused_state_variables",
+   "write_after_write"
+  ],
+  "is_protected (auth check)": [
+   "arbitrary_send_eth",
+   "controlled_delegatecall",
+   "gelato_unprotected_randomness",
+   "missing_events_access_control",
+   "missing_events_arithmetic",
+   "suicidal"
+  ],
+  "solidity_calls": [
+   "encode_packed",
+   "external_function",
+   "incorrect_return",
+   "return_instead_of_leave",
+   "unprotected_upgradeable"
+  ],
+  "low_level_calls": [
+   "all_detectors",
+   "controlled_delegatecall",
+   "low_level_calls",
+   "return_bomb",
+   "unprotected_upgradeable"
+  ],
+  "node.irs_ssa (SSA IR)": [
+   "bad_prng",
+   "incorrect_strict_equality",
+   "uninitialized_function_ptr_in_constructor"
+  ],
+  "SourceMapping/spans": [
+   "enum_conversion",
+   "incorrect_using_for",
+   "unused_import"
+  ],
+  "library_calls": [
+   "dead_code",
+   "write_after_write"
+  ],
+  "external_calls_as_expressions": [],
+  "dominators/postdominators": []
+ }
+}

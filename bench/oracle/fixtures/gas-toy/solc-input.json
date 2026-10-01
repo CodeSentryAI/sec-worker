@@ -1,0 +1,23 @@
+{
+ "language": "Solidity",
+ "settings": {
+  "optimizer": {
+   "enabled": false
+  },
+  "outputSelection": {
+   "*": {
+    "": [
+     "ast"
+    ],
+    "*": [
+     "abi"
+    ]
+   }
+  }
+ },
+ "sources": {
+  "GasIssues.sol": {
+   "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.19;\n\ncontract GasIssues {\n    uint256 public total;\n    mapping(address => uint256) public balances;\n\n    function andInIf(bool a, bool b) external pure returns (bool) {\n        if (a && b) {\n            return true;\n        }\n        return false;\n    }\n\n    function addToTotal(uint256[] calldata xs) external {\n        uint256 len = xs.length;\n        for (uint256 i; i < len; ++i) {\n            total += xs[i];\n        }\n    }\n}\n"
+  }
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "repos": {
+  "gas-toy": "success",
+  "openzeppelin": "success",
+  "seadrop": "compile_failure",
+  "seaport": "compile_failure",
+  "solidity-lib": "success",
+"solmate": "success",
+    "syntax-zoo": "success",
+    "v2-core": "success",
+  "v3-core": "success"
+ },
+ "schema_version": 1
+}

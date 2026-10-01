@@ -1,0 +1,3161 @@
+{
+ "functions": [
+  {
+   "contract": "SyntaxZoo.sol::ISyntaxZooCallee",
+   "entry": null,
+   "function": "SyntaxZoo.sol::ISyntaxZooCallee::probe(bytes)",
+   "nodes": [],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::ISyntaxZooCallee::probe(bytes)::<anon-2>@3938",
+     "kind": "return",
+     "name": "",
+     "type": "bytes32"
+    },
+    {
+     "id": "SyntaxZoo.sol::ISyntaxZooCallee::probe(bytes)::payload@3896",
+     "kind": "param",
+     "name": "payload",
+     "type": "bytes"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n0",
+   "function": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)",
+   "nodes": [
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n0",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 185,
+      "lines": [
+       72,
+       81
+      ],
+      "start": 2315
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n1"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n1",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 11,
+      "lines": [
+       73
+      ],
+      "start": 2325
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325",
+       "str": "acc"
+      },
+      "op": "+=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+       "str": "i"
+      },
+      "str": "acc += i"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n10",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325",
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       78
+      ],
+      "start": 2455
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n6"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325",
+      "str": "acc"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n11",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 10,
+      "lines": [
+       80
+      ],
+      "start": 2483
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n2",
+     "kind": "NodeType.ENDLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 128,
+      "lines": [
+       74,
+       79
+      ],
+      "start": 2346
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n11"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n3",
+     "kind": "NodeType.STARTLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 128,
+      "lines": [
+       74,
+       79
+      ],
+      "start": 2346
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+       "str": "i"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "0",
+       "type": "uint256",
+       "value": "0"
+      },
+      "str": "i = 0"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n4",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       74
+      ],
+      "start": 2351
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+       "str": "i"
+      },
+      "op": "<",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::n@2279",
+       "str": "n"
+      },
+      "str": "i < n"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n5",
+     "kind": "NodeType.IFLOOP",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::n@2279"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       74
+      ],
+      "start": 2366
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n2",
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n8"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+       "str": "i"
+      },
+      "str": "i ++"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 3,
+      "lines": [
+       74
+      ],
+      "start": 2373
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n5"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351"
+     ]
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n7",
+     "kind": "NodeType.ENDIF",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 50,
+      "lines": [
+       75,
+       77
+      ],
+      "start": 2392
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n10"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+       "str": "i"
+      },
+      "op": "==",
+      "rhs": {
+       "kind": "Literal",
+       "str": "3",
+       "type": "uint256",
+       "value": "3"
+      },
+      "str": "i == 3"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n8",
+     "kind": "NodeType.IF",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 6,
+      "lines": [
+       75
+      ],
+      "start": 2396
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n7",
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n9"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n9",
+     "kind": "NodeType.BREAK",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       76
+      ],
+      "start": 2422
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)#n2"
+     ],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::<anon-2>@2306",
+     "kind": "return",
+     "name": "",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::acc@2325",
+     "kind": "local",
+     "name": "acc",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::i@2351",
+     "kind": "local",
+     "name": "i",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::breakCase(uint256)::n@2279",
+     "kind": "param",
+     "name": "n",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n0",
+   "function": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)",
+   "nodes": [
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n0",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 154,
+      "lines": [
+       125,
+       134
+      ],
+      "start": 3690
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n1"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::v@3654",
+       "str": "v"
+      },
+      "str": "acc = v"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n1",
+     "kind": "NodeType.VARIABLE",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::v@3654"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 15,
+      "lines": [
+       126
+      ],
+      "start": 3700
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n2"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "op": "+=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "1",
+       "type": "uint256",
+       "value": "1"
+      },
+      "str": "acc += 1"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n2",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       127
+      ],
+      "start": 3725
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "op": "-=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "2",
+       "type": "uint256",
+       "value": "2"
+      },
+      "str": "acc -= 2"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n3",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       128
+      ],
+      "start": 3743
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n4"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "op": "*=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "3",
+       "type": "uint256",
+       "value": "3"
+      },
+      "str": "acc *= 3"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n4",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       129
+      ],
+      "start": 3761
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n5"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "op": "/=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "4",
+       "type": "uint256",
+       "value": "4"
+      },
+      "str": "acc /= 4"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n5",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       130
+      ],
+      "start": 3779
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n6"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "str": "acc ++"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       131
+      ],
+      "start": 3797
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n7"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "--",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+       "str": "acc"
+      },
+      "str": "-- acc"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n7",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       132
+      ],
+      "start": 3812
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n8"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+      "str": "acc"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)#n8",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 10,
+      "lines": [
+       133
+      ],
+      "start": 3827
+     },
+     "successors": [],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::<anon-2>@3681",
+     "kind": "return",
+     "name": "",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::acc@3700",
+     "kind": "local",
+     "name": "acc",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::compoundAssignCase(uint256)::v@3654",
+     "kind": "param",
+     "name": "v",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555",
+      "str": "acc"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       83
+      ],
+      "start": 2554
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 151,
+      "lines": [
+       83,
+       90
+      ],
+      "start": 2568
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555",
+       "str": "acc"
+      },
+      "op": "+=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+       "str": "i"
+      },
+      "str": "acc += i"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n10",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555",
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       88
+      ],
+      "start": 2694
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n6"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555"
+     ]
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n2",
+     "kind": "NodeType.ENDLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 135,
+      "lines": [
+       84,
+       89
+      ],
+      "start": 2578
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n0"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n3",
+     "kind": "NodeType.STARTLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 135,
+      "lines": [
+       84,
+       89
+      ],
+      "start": 2578
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+       "str": "i"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "0",
+       "type": "uint256",
+       "value": "0"
+      },
+      "str": "i = 0"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n4",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       84
+      ],
+      "start": 2583
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+       "str": "i"
+      },
+      "op": "<",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::n@2528",
+       "str": "n"
+      },
+      "str": "i < n"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n5",
+     "kind": "NodeType.IFLOOP",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::n@2528"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       84
+      ],
+      "start": 2598
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n2",
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n8"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+       "str": "i"
+      },
+      "str": "i ++"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 3,
+      "lines": [
+       84
+      ],
+      "start": 2605
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n5"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583"
+     ]
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n7",
+     "kind": "NodeType.ENDIF",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 57,
+      "lines": [
+       85,
+       87
+      ],
+      "start": 2624
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n10"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "BinaryOperation",
+       "lhs": {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+        "str": "i"
+       },
+       "op": "%",
+       "rhs": {
+        "kind": "Literal",
+        "str": "2",
+        "type": "uint256",
+        "value": "2"
+       },
+       "str": "i % 2"
+      },
+      "op": "==",
+      "rhs": {
+       "kind": "Literal",
+       "str": "0",
+       "type": "uint256",
+       "value": "0"
+      },
+      "str": "i % 2 == 0"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n8",
+     "kind": "NodeType.IF",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 10,
+      "lines": [
+       85
+      ],
+      "start": 2628
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n7",
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n9"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n9",
+     "kind": "NodeType.CONTINUE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       86
+      ],
+      "start": 2658
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)#n6"
+     ],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::acc@2555",
+     "kind": "return",
+     "name": "acc",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::i@2583",
+     "kind": "local",
+     "name": "i",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::continueCase(uint256)::n@2528",
+     "kind": "param",
+     "name": "n",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138",
+      "str": "acc"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       64
+      ],
+      "start": 2137
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 103,
+      "lines": [
+       64,
+       70
+      ],
+      "start": 2151
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n2",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       65
+      ],
+      "start": 2161
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n3",
+     "kind": "NodeType.ENDLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 68,
+      "lines": [
+       66,
+       69
+      ],
+      "start": 2180
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n0"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n4",
+     "kind": "NodeType.STARTLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 68,
+      "lines": [
+       66,
+       69
+      ],
+      "start": 2180
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138",
+       "str": "acc"
+      },
+      "op": "+=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161",
+       "str": "i"
+      },
+      "str": "acc += i"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n5",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138",
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       67
+      ],
+      "start": 2197
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n6"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161",
+       "str": "i"
+      },
+      "str": "i ++"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 3,
+      "lines": [
+       68
+      ],
+      "start": 2219
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n7"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161",
+       "str": "i"
+      },
+      "op": "<",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::n@2111",
+       "str": "n"
+      },
+      "str": "i < n"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n7",
+     "kind": "NodeType.IFLOOP",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161",
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::n@2111"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       69
+      ],
+      "start": 2241
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n3",
+      "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)#n5"
+     ],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::acc@2138",
+     "kind": "return",
+     "name": "acc",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::i@2161",
+     "kind": "local",
+     "name": "i",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::doWhileCase(uint256)::n@2111",
+     "kind": "param",
+     "name": "n",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826",
+      "str": "sum"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       50
+      ],
+      "start": 1825
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 81,
+      "lines": [
+       50,
+       54
+      ],
+      "start": 1839
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n2",
+     "kind": "NodeType.ENDLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 65,
+      "lines": [
+       51,
+       53
+      ],
+      "start": 1849
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n0"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n3",
+     "kind": "NodeType.STARTLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 65,
+      "lines": [
+       51,
+       53
+      ],
+      "start": 1849
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+       "str": "i"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "0",
+       "type": "uint256",
+       "value": "0"
+      },
+      "str": "i = 0"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n4",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       51
+      ],
+      "start": 1854
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+       "str": "i"
+      },
+      "op": "<",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::n@1799",
+       "str": "n"
+      },
+      "str": "i < n"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n5",
+     "kind": "NodeType.IFLOOP",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::n@1799"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       51
+      ],
+      "start": 1869
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n2",
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n7"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+       "str": "i"
+      },
+      "str": "i ++"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 3,
+      "lines": [
+       51
+      ],
+      "start": 1876
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n5"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826",
+       "str": "sum"
+      },
+      "op": "+=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+       "str": "i"
+      },
+      "str": "sum += i"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n7",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       52
+      ],
+      "start": 1895
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)#n6"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::i@1854",
+     "kind": "local",
+     "name": "i",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::n@1799",
+     "kind": "param",
+     "name": "n",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::forCase(uint256)::sum@1826",
+     "kind": "return",
+     "name": "sum",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n0",
+   "function": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)",
+   "nodes": [
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n0",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 153,
+      "lines": [
+       40,
+       48
+      ],
+      "start": 1623
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n1"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::a@1580",
+      "str": "a"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n1",
+     "kind": "NodeType.IF",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::a@1580"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 1,
+      "lines": [
+       41
+      ],
+      "start": 1637
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n2",
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n3"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "Literal",
+      "str": "true",
+      "type": "bool",
+      "value": "true"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n2",
+     "kind": "NodeType.RETURN",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 11,
+      "lines": [
+       42
+      ],
+      "start": 1654
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::b@1588",
+      "str": "b"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n3",
+     "kind": "NodeType.IF",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::b@1588"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 1,
+      "lines": [
+       43
+      ],
+      "start": 1686
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n4",
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "Literal",
+      "str": "false",
+      "type": "bool",
+      "value": "false"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n4",
+     "kind": "NodeType.RETURN",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 12,
+      "lines": [
+       44
+      ],
+      "start": 1703
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::a@1580",
+       "str": "a"
+      },
+      "op": "&&",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::b@1588",
+       "str": "b"
+      },
+      "str": "a && b"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)#n5",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::a@1580",
+      "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::b@1588"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       46
+      ],
+      "start": 1746
+     },
+     "successors": [],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::<anon-3>@1617",
+     "kind": "return",
+     "name": "",
+     "type": "bool"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::a@1580",
+     "kind": "param",
+     "name": "a",
+     "type": "bool"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::ifCase(bool,bool)::b@1588",
+     "kind": "param",
+     "name": "b",
+     "type": "bool"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "args": [
+       {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::v@3220",
+        "str": "v"
+       }
+      ],
+      "called": {
+       "kind": "Identifier",
+       "str": "onlyPositive"
+      },
+      "kind": "CallExpression",
+      "str": "onlyPositive(v)"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n0",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::v@3220"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 15,
+      "lines": [
+       109
+      ],
+      "start": 3238
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 52,
+      "lines": [
+       109,
+       112
+      ],
+      "start": 3272
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n0"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+       "str": "counter"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::v@3220",
+       "str": "v"
+      },
+      "str": "counter = v"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n2",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::v@3220"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 11,
+      "lines": [
+       110
+      ],
+      "start": 3282
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::counter@1337"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+      "str": "counter"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)#n3",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::counter@1337"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 14,
+      "lines": [
+       111
+      ],
+      "start": 3303
+     },
+     "successors": [],
+     "writes": []
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::<anon-2>@3263",
+     "kind": "return",
+     "name": "",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::modifierCase(uint256)::v@3220",
+     "kind": "param",
+     "name": "v",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "items": [
+       {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529",
+        "str": "doubled"
+       },
+       {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546",
+        "str": "tripled"
+       }
+      ],
+      "kind": "TupleExpression",
+      "str": "(doubled,tripled)"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529",
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 34,
+      "lines": [
+       120
+      ],
+      "start": 3528
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 57,
+      "lines": [
+       120,
+       123
+      ],
+      "start": 3563
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529",
+       "str": "doubled"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "BinaryOperation",
+       "lhs": {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::v@3502",
+        "str": "v"
+       },
+       "op": "*",
+       "rhs": {
+        "kind": "Literal",
+        "str": "2",
+        "type": "uint256",
+        "value": "2"
+       },
+       "str": "v * 2"
+      },
+      "str": "doubled = v * 2"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n2",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::v@3502"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 15,
+      "lines": [
+       121
+      ],
+      "start": 3573
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546",
+       "str": "tripled"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "BinaryOperation",
+       "lhs": {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::v@3502",
+        "str": "v"
+       },
+       "op": "*",
+       "rhs": {
+        "kind": "Literal",
+        "str": "3",
+        "type": "uint256",
+        "value": "3"
+       },
+       "str": "v * 3"
+      },
+      "str": "tripled = v * 3"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n3",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::v@3502"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 15,
+      "lines": [
+       122
+      ],
+      "start": 3598
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)#n0"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::doubled@3529",
+     "kind": "return",
+     "name": "doubled",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::tripled@3546",
+     "kind": "return",
+     "name": "tripled",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::namedReturnCase(uint256)::v@3502",
+     "kind": "param",
+     "name": "v",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()#n0",
+   "function": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+       "str": "owner"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()::msg.sender@2",
+       "str": "msg.sender"
+      },
+      "str": "owner = msg.sender"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()#n0",
+     "kind": "NodeType.OTHER_ENTRYPOINT",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()::msg.sender@2"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 33,
+      "lines": [
+       30
+      ],
+      "start": 1365
+     },
+     "successors": [],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::owner@1365"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()::msg.sender@2",
+     "kind": "local",
+     "name": "msg.sender",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::slitherConstructorVariables()::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930",
+      "str": "ok"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       98
+      ],
+      "start": 2929
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 253,
+      "lines": [
+       98,
+       107
+      ],
+      "start": 2939
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "args": [
+       {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::payload@2890",
+        "str": "payload"
+       }
+      ],
+      "called": {
+       "kind": "MemberAccess",
+       "member": "probe",
+       "obj": {
+        "kind": "TypeConversion",
+        "operand": {
+         "kind": "Identifier",
+         "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::target@2874",
+         "str": "target"
+        },
+        "str": "ISyntaxZooCallee(target)",
+        "type": "ISyntaxZooCallee"
+       },
+       "str": "ISyntaxZooCallee(target).probe"
+      },
+      "kind": "CallExpression",
+      "str": "ISyntaxZooCallee(target).probe(payload)"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n2",
+     "kind": "NodeType.TRY",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::payload@2890",
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::target@2874"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 237,
+      "lines": [
+       99,
+       106
+      ],
+      "start": 2949
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n3",
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n5",
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n8"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n3",
+     "kind": "NodeType.CATCH",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 34,
+      "lines": [
+       99,
+       101
+      ],
+      "start": 2993
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930",
+       "str": "ok"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "true",
+       "type": "bool",
+       "value": "true"
+      },
+      "str": "ok = true"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n4",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       100
+      ],
+      "start": 3007
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n0"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930"
+     ]
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n5",
+     "kind": "NodeType.CATCH",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 116,
+      "lines": [
+       101,
+       104
+      ],
+      "start": 3028
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n6"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "args": [
+       {
+        "kind": "MemberAccess",
+        "member": "length",
+        "obj": {
+         "kind": "TypeConversion",
+         "operand": {
+          "kind": "Identifier",
+          "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::reason@3040",
+          "str": "reason"
+         },
+         "str": "bytes(reason)",
+         "type": "bytes"
+        },
+        "str": "bytes(reason).length"
+       }
+      ],
+      "called": {
+       "kind": "Identifier",
+       "str": "Jumped"
+      },
+      "kind": "CallExpression",
+      "str": "Jumped(bytes(reason).length)"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::TMP_17@4",
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::reason@3040"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 33,
+      "lines": [
+       102
+      ],
+      "start": 3076
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n7"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930",
+       "str": "ok"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "false",
+       "type": "bool",
+       "value": "false"
+      },
+      "str": "ok = false"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n7",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 10,
+      "lines": [
+       103
+      ],
+      "start": 3123
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n0"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930"
+     ]
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n8",
+     "kind": "NodeType.CATCH",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 41,
+      "lines": [
+       104,
+       106
+      ],
+      "start": 3145
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n9"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930",
+       "str": "ok"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "false",
+       "type": "bool",
+       "value": "false"
+      },
+      "str": "ok = false"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n9",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 10,
+      "lines": [
+       105
+      ],
+      "start": 3165
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)#n0"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::TMP_17@4",
+     "kind": "local",
+     "name": "TMP_17",
+     "type": "bytes"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::ok@2930",
+     "kind": "return",
+     "name": "ok",
+     "type": "bool"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::payload@2890",
+     "kind": "param",
+     "name": "payload",
+     "type": "bytes"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::reason@3040",
+     "kind": "local",
+     "name": "reason",
+     "type": "string"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tryCase(address,bytes)::target@2874",
+     "kind": "param",
+     "name": "target",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()",
+   "nodes": [
+    {
+     "expression": {
+      "items": [
+       {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371",
+        "str": "a"
+       },
+       {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382",
+        "str": "b"
+       }
+      ],
+      "kind": "TupleExpression",
+      "str": "(a,b)"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371",
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 22,
+      "lines": [
+       114
+      ],
+      "start": 3370
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 78,
+      "lines": [
+       114,
+       118
+      ],
+      "start": 3393
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404",
+       "str": "x"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "1",
+       "type": "uint256",
+       "value": "1"
+      },
+      "str": "x = 1"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n2",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       115
+      ],
+      "start": 3404
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n3"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415",
+       "str": "y"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Literal",
+       "str": "2",
+       "type": "uint256",
+       "value": "2"
+      },
+      "str": "y = 2"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n3",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       115
+      ],
+      "start": 3415
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n4"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371",
+       "str": "a"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404",
+       "str": "x"
+      },
+      "str": "a = x"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n4",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       116
+      ],
+      "start": 3444
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n5"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382",
+       "str": "b"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415",
+       "str": "y"
+      },
+      "str": "b = y"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n5",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       117
+      ],
+      "start": 3459
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()#n0"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::a@3371",
+     "kind": "return",
+     "name": "a",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::b@3382",
+     "kind": "return",
+     "name": "b",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::x@3404",
+     "kind": "local",
+     "name": "x",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::tupleDeclCase()::y@3415",
+     "kind": "local",
+     "name": "y",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780",
+      "str": "y"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 11,
+      "lines": [
+       92
+      ],
+      "start": 2779
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 60,
+      "lines": [
+       92,
+       96
+      ],
+      "start": 2791
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780",
+       "str": "y"
+      },
+      "op": "=",
+      "rhs": {
+       "kind": "BinaryOperation",
+       "lhs": {
+        "kind": "Identifier",
+        "ref": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::x@2748",
+        "str": "x"
+       },
+       "op": "+",
+       "rhs": {
+        "kind": "Literal",
+        "str": "1",
+        "type": "uint256",
+        "value": "1"
+       },
+       "str": "x + 1"
+      },
+      "str": "y = x + 1"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)#n2",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::x@2748"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       94
+      ],
+      "start": 2825
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)#n0"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::x@2748",
+     "kind": "param",
+     "name": "x",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::uncheckedCase(uint256)::y@2780",
+     "kind": "return",
+     "name": "y",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "contract": "SyntaxZoo.sol::SyntaxZoo",
+   "entry": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n1",
+   "function": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)",
+   "nodes": [
+    {
+     "expression": {
+      "kind": "Identifier",
+      "ref": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972",
+      "str": "acc"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n0",
+     "kind": "NodeType.RETURN",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 13,
+      "lines": [
+       56
+      ],
+      "start": 1971
+     },
+     "successors": [],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n1",
+     "kind": "NodeType.ENTRYPOINT",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 99,
+      "lines": [
+       56,
+       62
+      ],
+      "start": 1985
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n2"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n2",
+     "kind": "NodeType.VARIABLE",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 9,
+      "lines": [
+       57
+      ],
+      "start": 1995
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n4"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n3",
+     "kind": "NodeType.ENDLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 64,
+      "lines": [
+       58,
+       61
+      ],
+      "start": 2014
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n0"
+     ],
+     "writes": []
+    },
+    {
+     "expression": null,
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n4",
+     "kind": "NodeType.STARTLOOP",
+     "reads": [],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 64,
+      "lines": [
+       58,
+       61
+      ],
+      "start": 2014
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n5"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "BinaryOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995",
+       "str": "i"
+      },
+      "op": "<",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::n@1945",
+       "str": "n"
+      },
+      "str": "i < n"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n5",
+     "kind": "NodeType.IFLOOP",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995",
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::n@1945"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 5,
+      "lines": [
+       58
+      ],
+      "start": 2021
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n3",
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n6"
+     ],
+     "writes": []
+    },
+    {
+     "expression": {
+      "kind": "AssignmentOperation",
+      "lhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972",
+       "str": "acc"
+      },
+      "op": "+=",
+      "rhs": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995",
+       "str": "i"
+      },
+      "str": "acc += i"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n6",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972",
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 8,
+      "lines": [
+       59
+      ],
+      "start": 2042
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n7"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972"
+     ]
+    },
+    {
+     "expression": {
+      "kind": "UnaryOperation",
+      "op": "++",
+      "operand": {
+       "kind": "Identifier",
+       "ref": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995",
+       "str": "i"
+      },
+      "str": "i ++"
+     },
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n7",
+     "kind": "NodeType.EXPRESSION",
+     "reads": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995"
+     ],
+     "source": {
+      "file": "SyntaxZoo.sol",
+      "length": 3,
+      "lines": [
+       60
+      ],
+      "start": 2064
+     },
+     "successors": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)#n5"
+     ],
+     "writes": [
+      "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995"
+     ]
+    }
+   ],
+   "variables": [
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::counter@1337",
+     "kind": "state",
+     "name": "counter",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::owner@1365",
+     "kind": "state",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::unlocked@1404",
+     "kind": "state",
+     "name": "unlocked",
+     "type": "bool"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::acc@1972",
+     "kind": "return",
+     "name": "acc",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::i@1995",
+     "kind": "local",
+     "name": "i",
+     "type": "uint256"
+    },
+    {
+     "id": "SyntaxZoo.sol::SyntaxZoo::whileCase(uint256)::n@1945",
+     "kind": "param",
+     "name": "n",
+     "type": "uint256"
+    }
+   ]
+  }
+ ],
+ "meta": {
+  "exported_at": "deterministic",
+  "repo": "syntax-zoo",
+  "slither_version": "0.11.6",
+  "solc": "0.8.28"
+ }
+}
