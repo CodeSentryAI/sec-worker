@@ -28,10 +28,7 @@ const LEVELS = ["model.json", "cfg.json", "analysis.json"] as const;
  * Constructs with known, still-open lowering gaps, with the reason. Remove an
  * entry once its function is IDENTICAL on all levels.
  */
-const EXPECTED_OPEN: Record<string, string> = {
-  "tryCase(address,bytes)":
-    "node reads include slither's IR temporaries (TMP_17 from the bytes(reason) type conversion) — needs R4.2 IR-dest emulation, not a CFG-level fix",
-};
+const EXPECTED_OPEN: Record<string, string> = {};
 
 function buildRust(): boolean {
   const r = spawnSync(process.env.CARGO ?? "cargo", ["build"], { cwd: SLITHER_RS, encoding: "utf8" });

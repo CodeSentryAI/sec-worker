@@ -31,14 +31,22 @@
 ```
 G0 manifest        PASS   bench/oracle/fixture-manifest.json（7 success + seadrop/seaport compile_failure）
 G1 model.json      PASS   全部 7 个 fixture IDENTICAL
-G2 cfg.json        OPEN   仅剩 tryCase 一项（见 EXPECTED_OPEN）：node reads 含 slither
-                          IR 临时变量（TMP_17，来自 bytes(reason) 类型转换）——属
-                          R4.2 IR-dest 范畴，不是 CFG 层可修的
-G3 analysis.json   BLOCKED（等 G2 全绿）
-G4 effects         BLOCKED（等 G2 全绿）
+G2 cfg.json        PASS   EXPECTED_OPEN 空：zoo cfg 14/14 IDENTICAL（tryCase 的
+                          TMP 临时变量已被远端实现模拟）
+G3 analysis.json   OPEN   zoo analysis.json 剩 6 个 diff（合并前我方 13）
+G4 effects         BLOCKED（等 G3）
 G5 determinism+ids PASS   oracle/Rust 双跑 byte-identical；scoped ID 唯一性
-G6 syntax-zoo      13/14 IDENTICAL（唯一 OPEN 即 tryCase，理由见 EXPECTED_OPEN）
+G6 syntax-zoo      PASS   14/14 IDENTICAL
 ```
+
+### 合并说明（2026-10-02，slither-rs 5f1b758）
+
+本地与远端并行收敛同一 gate：实测对比后保留远端实现（zoo cfg 14/14、
+analysis 6 diffs 优于本地 13/14 与 13 diffs），本地 fd60aa4 的独有贡献
+（referencedDeclaration+name-fallback 的声明解析、decl MAX 守卫、裸 Block
+内联、builtin 数组遍历）尚未移植进远端更严格的 validate_decl_refs 架构——
+表现为大 repo fail-closed 报 unknown-declaration-ref/dangling/unregistered-variable-decl gaps（v2-core 67 / OZ 354）。**下一项工作 = 把
+这些声明注册路径移植进远端架构，使 v2-core/OZ 回到只报 yul 缺口。**
 
 ### slither-rs vs oracle 实测差异（修复测量管道后的真实数字）
 
