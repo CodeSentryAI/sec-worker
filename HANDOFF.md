@@ -31,9 +31,11 @@
 ```
 G0 manifest        PASS   bench/oracle/fixture-manifest.json（7 success + seadrop/seaport compile_failure）
 G1 model.json      PASS   全部 7 个 fixture IDENTICAL
-G2 cfg.json        PASS   EXPECTED_OPEN 空：zoo cfg 14/14 IDENTICAL（tryCase 的
-                          TMP 临时变量已被远端实现模拟）
-G3 analysis.json   OPEN   zoo analysis.json 剩 6 个 diff（合并前我方 13）
+G2 cfg.json        PASS   EXPECTED_OPEN 空：zoo cfg 14/14 IDENTICAL
+G3 analysis.json   OPEN   gate 内 3 仓库 analysis 全绿；call-zoo（planned）
+                          剩 65 字段级 diff = R4.1e 尾段（library/using-for
+                          读归属、low-level 元组 R/W、type() 显示），清单在
+                          slither-rs HANDOFF.md
 G4 effects         BLOCKED（等 G3）
 G5 determinism+ids PASS   oracle/Rust 双跑 byte-identical；scoped ID 唯一性
 G6 syntax-zoo      PASS   14/14 IDENTICAL
