@@ -29,15 +29,8 @@ const LEVELS = ["model.json", "cfg.json", "analysis.json"] as const;
  * entry once its function is IDENTICAL on all levels.
  */
 const EXPECTED_OPEN: Record<string, string> = {
-  "slitherConstructorVariables()": "synthetic function has no AST definition, so no CFG is built",
-  "doWhileCase(uint256)": "DoWhileStatement not lowered (STARTLOOP->body->post->IFLOOP skeleton)",
-  "tryCase(address,bytes)": "TryStatement/TryCatchClause not lowered",
-  "tupleDeclCase()": "tuple variable declaration not expanded into per-component VARIABLE nodes + tuple assignment",
-  "breakCase(uint256)": "break back-edge target/ordering differs",
-  "continueCase(uint256)": "continue back-edge target/ordering differs",
-  "ifCase(bool,bool)": "else-branch son ordering differs",
-  "namedReturnCase(uint256)": "implicit-return tuple expression details differ",
-  "whileCase(uint256)": "while back-edge/ordering details differ",
+  "tryCase(address,bytes)":
+    "node reads include slither's IR temporaries (TMP_17 from the bytes(reason) type conversion) — needs R4.2 IR-dest emulation, not a CFG-level fix",
 };
 
 function buildRust(): boolean {

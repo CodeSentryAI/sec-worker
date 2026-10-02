@@ -281,15 +281,19 @@ def main():
     gates.append(("G6 syntax-zoo constructs covered", g6_ok, g6_msg))
 
     blocked = False
+    gate_status = []
     for name, ok, msg in gates:
-        if blocked and not ok:
-            state = "BLOCKED"
+        if blocked:
+            # upstream red must cascade: a downstream PASS can never mask it
+            state = "BLOCKED (local pass)" if ok else "BLOCKED"
+            ok = False
         elif ok:
             state = "PASS"
         else:
             state = "OPEN"
             blocked = True
-        print(f"  {name:<42}{state:<10}{msg}")
+        gate_status.append({"name": name, "state": state, "ok": ok, "msg": msg})
+        print(f"  {name:<42}{state:<24}{msg}")
 
     if g0_problems:
         print("\n  G0 problems:")
@@ -306,7 +310,17 @@ def main():
 
     print("=" * 74)
     print("R4.1 is COMPLETE only when every gate above reads PASS.")
-    sys.exit(0 if all(ok for _, ok, _ in gates) else 1)
+
+    # machine-readable status: README/HANDOFF reference this file instead of
+    # hand-maintained numbers (anti-scoreboard-drift)
+    status_path = os.path.join(FIXTURES, "..", "gate-status.json")
+    with open(status_path, "w") as fh:
+        json.dump({
+            "complete": all(g["ok"] for g in gate_status),
+            "gates": gate_status,
+        }, fh, indent=1)
+    print(f"machine-readable status: {os.path.normpath(status_path)}")
+    sys.exit(0 if all(g["ok"] for g in gate_status) else 1)
 
 
 if __name__ == "__main__":
