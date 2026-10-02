@@ -1,6 +1,6 @@
 # HANDOFF — Chain Fox scan pipeline: sec-worker + slither-rs
 
-状态快照: 2026-10-01。接手前先读本文件，再读两份 README（本目录与
+状态快照: 2026-10-02（更新自 10-01 版）。接手前先读本文件，再读两份 README（本目录与
 `~/Projects/BW2/slither-rs/README.md`——后者含 oracle 契约与 R4.1 表）。
 本文件是唯一权威的"现在在哪 / 为什么 / 下一步"。
 
@@ -31,11 +31,13 @@
 ```
 G0 manifest        PASS   bench/oracle/fixture-manifest.json（7 success + seadrop/seaport compile_failure）
 G1 model.json      PASS   全部 7 个 fixture IDENTICAL
-G2 cfg.json        OPEN   gas-toy 0/0/0 ✅；syntax-zoo 剩 ~5 个 detail-case；大 repo 未收
-G3 analysis.json   BLOCKED（等 G2）
-G4 effects         BLOCKED（等 G2）
+G2 cfg.json        OPEN   仅剩 tryCase 一项（见 EXPECTED_OPEN）：node reads 含 slither
+                          IR 临时变量（TMP_17，来自 bytes(reason) 类型转换）——属
+                          R4.2 IR-dest 范畴，不是 CFG 层可修的
+G3 analysis.json   BLOCKED（等 G2 全绿）
+G4 effects         BLOCKED（等 G2 全绿）
 G5 determinism+ids PASS   oracle/Rust 双跑 byte-identical；scoped ID 唯一性
-G6 syntax-zoo      BLOCKED（13→9/14 IDENTICAL，见 tests/r41-syntax-zoo.test.ts 的 EXPECTED_OPEN）
+G6 syntax-zoo      13/14 IDENTICAL（唯一 OPEN 即 tryCase，理由见 EXPECTED_OPEN）
 ```
 
 ### slither-rs vs oracle 实测差异（修复测量管道后的真实数字）
@@ -74,19 +76,40 @@ v2-core 77ms/14MB · v3-core 499ms/66MB · solmate 1.1s/163MB · OZ 2.2s/198MB
 
 ## 4. 下一步任务清单（按序）
 
-### G2 收口（zoo 驱动，EXPECTED_OPEN 就是工作队列）
-1. loop 内 IFLOOP son 顺序 + back-edge 细节：breakCase/continueCase/doWhileCase
-   的 `successors[1]` 差异 —— 与 oracle 逐节点对照（zoo diff 直接给出节点号）。
-2. ifCase 的 else-branch son 顺序、whileCase 回边、namedReturnCase 的
-   implicit-return tuple 细节、tryCase 的 callee 表达式细节。
-3. `slitherConstructorVariables` 在 zoo 已 1 节点相等但全量 diff 仍有条目——
-   跑 `npm run oracle -- diff` 看剩余字段。
-4. 每关一个 case：从 tests/r41-syntax-zoo.test.ts 的 EXPECTED_OPEN 删除条目
-   （测试会先 FAIL 提醒你删——这是设计）。
-5. G2 全绿后跑大 repo：`diff.py fixtures /tmp/… --file cfg.json`（根目录级！）
-   预期剩 while/try/modifier 组合场景，按 zoo 新增 case 逐个消。
+### 2026-10-02 本轮已落地（slither-rs fd60aa4 + sec-worker 16eb3e6）
 
-### G3/G4（G2 绿后）
+1. **修复了半成品 FunctionOrigin 重构导致的编译失败**（上次会话遗留），构建恢复。
+2. **build_stmts 头修复**：块级 Flow 的 head 曾返回"最后一条语句的 head"，
+   导致 while/for/do-while 的 IFLOOP true-son 全部指到循环体尾部 → 改为
+   首语句 head（zoo 4 个 loop case 全部转绿）。
+3. **if/else 儿子序**：有 else 时 IF 的 false-son 直接指 else 头（[true, else]），
+   else 分支 prev=None 构建；ENDIF 只收 fall-through（ifCase 转绿）。
+4. **continue 目标**：for 循环的 post 语句是 continue 的落点（post 节点在 body
+   前创建——id 按 span-sort，创建顺序不可观察）；while/do-while 仍指 IFLOOP
+   （continueCase 转绿）。
+5. **slither 内建变量**：msg.sender / block.timestamp / msg.value / tx.origin 等
+   以每函数 synthetic local 物化（ExprArena::builtin_hook + 全 fnode 预扫描，
+   **注意 walk 必须递归数组**——曾因跳过 body.statements 数组导致 v2-core 全部
+   miss）；cfg_json 先建变量注册表再序列化节点，无 source-mapping 的变量 id 用
+   序数计数器（oracle var_id 规则）（slitherConstructorVariables 转绿）。
+6. **typeConversion**：solc FunctionCall kind=typeConversion → TypeConversion
+   （bytes(reason)、ISyntaxZooCallee(target)），剥 contract/memory 后缀；无引用
+   标识符（事件名 Jumped）序列化为无 ref 的 Identifier（tryCase 大部分转绿）。
+7. **catch 子句参数**注册为函数 local（ParameterList 包一层 object 的形状）。
+8. **健壮性**：decl_identifier 不再产出越界 VariableId（v3-core 崩溃源）；
+   Assignment 读写 MAX 守卫；裸嵌套 Block 内联（v2-core Blockx2 消除）；
+   compute_lines 单行 [n,n]→[n]。
+
+### G2 收口（只剩一项）
+
+1. tryCase 的 TMP 临时变量属 R4.2 IR-dest：实现 slither convert_expression 的
+   临时变量分配规则后，从 EXPECTED_OPEN 删除 tryCase（tests/r41-syntax-zoo.test.ts）。
+2. 大 repo（如实测量）：v2-core 仅剩 InlineAssemblyx2（yul）；v3-core
+   InlineAssemblyx30 + FunctionCallOptionsx2；solmate/OZ 各有 assembly 等——
+   全部 fail-closed 如实上报。下一步 = InlineAssembly(yul) 最小降级 +
+   FunctionCallOptions (`foo{value:x}(...)`) + IndexRangeAccess (`a[1:2]`)。
+
+### G3/G4（G2 全绿后）
 - analysis.json 的 call 分类：**CallTarget 与 CallKind 分轴**；
   internal 解析用 AST `referencedDeclaration`（id → 函数），不要 name+argc。
 - 保持 direct/intraprocedural 边界：不做传播/依赖/taint/SSA（R4.3–R4.5）。
