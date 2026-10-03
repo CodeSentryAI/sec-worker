@@ -8,9 +8,12 @@
 
 | 路径 | 角色 | git |
 |---|---|---|
-| `~/Projects/BW2/chain-fox-frontend-dao` | VPS 控制面（React + Express/TS + SQLite；x402/Stripe 收费、quote/job 生命周期）。**与本轮工作无关，勿动** | 有远程 |
-| `~/Projects/BW2/sec-worker` | bwrap 沙箱 worker + 检测器（lockbud-stable、peCatch）+ **slither-oracle**（冻结语义快照）+ **bench**（A/B/C 成本测量） | git 已管理（initial commit 00edc85；大 corpus oracle 体 gitignored，字节可复现，见 .gitignore 注释） |
-| `~/Projects/BW2/slither-rs` | Rust 语义核（R4.1：solc AST → arena 模型 → CFG → direct facts），differential 对抗 oracle | git 已管理（initial commit de0e922，/target ignored） |
+| `~/solidity-sec/code/chain-fox-frontend-dao` | VPS 控制面（React + Express/TS + SQLite；x402/Stripe 收费、quote/job 生命周期）。**与本轮工作无关，勿动** | 有远程 |
+| `~/solidity-sec/code/sec-worker` | bwrap 沙箱 worker + 检测器（lockbud-stable、peCatch）+ **slither-oracle**（冻结语义快照）+ **bench**（A/B/C 成本测量） | git 已管理；大 corpus oracle 体 gitignored，字节可复现，见 .gitignore 注释 |
+| `~/solidity-sec/code/slither-rs` | Rust 语义核（R4.1：solc AST → arena 模型 → CFG → direct facts），differential 对抗 oracle | git 已管理（/target ignored） |
+
+> 路径注记：旧版本本文件写的是 `~/Projects/BW2/...`，本机不存在该目录，已按实际
+> 路径更正。换机器接手时请以本机实际 checkout 位置为准。
 
 ## 1. 环境事实（踩过坑的）
 
@@ -50,11 +53,31 @@ analysis 6 diffs 优于本地 13/14 与 13 diffs），本地 fd60aa4 的独有�
 表现为大 repo fail-closed 报 unknown-declaration-ref/dangling/unregistered-variable-decl gaps（v2-core 67 / OZ 354）。**下一项工作 = 把
 这些声明注册路径移植进远端架构，使 v2-core/OZ 回到只报 yul 缺口。**
 
-### slither-rs vs oracle 实测差异（修复测量管道后的真实数字）
+### slither-rs vs oracle 实测差异（截至 slither-rs `13ceb9e`，2026-10-03）
 
-gas-toy **0/0/0**；zoo 9/14 函数全等；v2-core/v3-core/solmate/OZ 尚有
-百~万级 cfg diffs —— 主因是 while/try/modifier 细节与 expression-detail，
-不是模型结构错误。
+上面 G 表里"zoo 9/14"、"百~万级 cfg diffs"是 2026-10-02 之前的旧数字，已过时。
+当前实测（`bash scripts/check_syntax_zoo.sh` + `scripts/diff_oracle.py` 根目录级
+逐层比对）：
+
+- success universe = **3 个 repo**：`gas-toy` / `identity-zoo` / `syntax-zoo`，
+  三层（model / cfg / analysis）全部逐字节 IDENTICAL。
+- **call-zoo**（专测 call 分类，manifest 标 `planned`）：`model.json` IDENTICAL，
+  `cfg.json` 36 处、`analysis.json` 6 处。五类 call bucket（internal /
+  high_level / low_level / library / solidity）与冻结 Slither 0.11.6 oracle
+  **逐条全等**，剩余差异是 compat/exporter 尾段。
+- **v2-core**：`declaration_gaps=0`，仍因 2 处 `InlineAssembly`(yul) fail-closed，
+  **未**进 success universe；cfg 63/96 函数全等。
+- openzeppelin / solidity-lib / solmate / v3-core 仍为 `planned`。
+
+> ⚠️ **两份 manifest 不一致，尚未解决**：本目录
+> `bench/oracle/fixture-manifest.json` 把 7 个 repo 标为 `success`（含 v2-core /
+> v3-core / openzeppelin / solmate / solidity-lib），slither-rs 的
+> `fixtures/fixture-manifest.json` 只有 3 个，且 v2-core 实测 fail-closed。
+> 二者必有一个过期。**未擅自改动任一 manifest**——需要先判定哪个权威，否则会把
+> "看起来绿"的结论写进 handoff。
+
+> 计数口径提示：G 表里的"65 字段级 diff"是 sec-worker 自有 harness 的口径，
+> 上面的 36/6 是 `diff_oracle.py` 的结构化差异条数，两者不可直接相减。
 
 ### 性能基线（debug build，AST→model→CFG→emit）
 
@@ -119,10 +142,16 @@ v2-core 77ms/14MB · v3-core 499ms/66MB · solmate 1.1s/163MB · OZ 2.2s/198MB
    全部 fail-closed 如实上报。下一步 = InlineAssembly(yul) 最小降级 +
    FunctionCallOptions (`foo{value:x}(...)`) + IndexRangeAccess (`a[1:2]`)。
 
-### G3/G4（G2 全绿后）
-- analysis.json 的 call 分类：**CallTarget 与 CallKind 分轴**；
-  internal 解析用 AST `referencedDeclaration`（id → 函数），不要 name+argc。
+### G3/G4
+- ~~analysis.json 的 call 分类：CallTarget 与 CallKind 分轴~~ **已完成**
+  （slither-rs `a687df3` 起）。`CallKind`（绑定方式）与 `CallTarget`（落到什么）
+  分轴，emitter 按 kind 分桶，不再从 JSON shape 反推类别；internal 解析已改用
+  declaration id。对照真实 Slither 0.11.6 oracle 校准，call-zoo 五类 bucket
+  逐条全等。
 - 保持 direct/intraprocedural 边界：不做传播/依赖/taint/SSA（R4.3–R4.5）。
+- **下一项**：先判定 §2 里两份 manifest 谁权威并统一；再收 call-zoo 剩余
+  compat 尾段。semantic 侧收尾（StructId/TypeRef、`VariableId(u32::MAX)` 退休、
+  R4.1 close）见 slither-rs `HANDOFF.md` 的 R4.1 收尾标准。
 
 ### 架构纪律（不可退让）
 - core 只用 typed arena id（ContractId/FunctionId/VariableId/CfgNodeId/ExprId）；
