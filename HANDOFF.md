@@ -149,8 +149,8 @@ v2-core 77ms/14MB · v3-core 499ms/66MB · solmate 1.1s/163MB · OZ 2.2s/198MB
   declaration id。对照真实 Slither 0.11.6 oracle 校准，call-zoo 五类 bucket
   逐条全等。
 - 保持 direct/intraprocedural 边界：不做传播/依赖/taint/SSA（R4.3–R4.5）。
-- **下一项**：先判定 §2 里两份 manifest 谁权威并统一；再收 call-zoo 剩余
-  compat 尾段。semantic 侧收尾（StructId/TypeRef、`VariableId(u32::MAX)` 退休、
+- **下一项**：先判定 §2 里两份 manifest 谁权威并统一（已作为待决问题记录在
+  `DECISIONS.md` D1，等人工裁定后再动 manifest）；再收 call-zoo 剩余 compat 尾段。semantic 侧收尾（StructId/TypeRef、`VariableId(u32::MAX)` 退休、
   R4.1 close）见 slither-rs `HANDOFF.md` 的 R4.1 收尾标准。
 
 ### 架构纪律（不可退让）
