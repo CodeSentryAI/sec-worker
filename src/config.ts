@@ -20,7 +20,7 @@ export const toolchains = {
   solcSelectDir: process.env.SEC_SOLC_SELECT_DIR
     ?? home(".solc-select"),
   pecatchSource: process.env.SEC_PECATCH_SOURCE
-    ?? home("Projects/solidity-sec/code/peCatch/code"),
+    ?? home("solidity-sec/code/peCatch/code"),
   benchVenv: process.env.SEC_BENCH_VENV
     ?? home("sec-toolchains/venv-bench"),
 };
