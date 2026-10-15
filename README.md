@@ -87,8 +87,11 @@ explain or downgrade findings but must not upgrade them.
 
 The current Lockbud and Slither/peCatch adapters always emit `signal`, including
 high-confidence or high-severity findings. A detector's own confidence is not a
-verification result. The worker currently has no Verified Gas or ERC rule
-producer, so it reports zero verified findings until such a verifier is added.
+verification result. An experimental ERC-20 ABI screen currently emits only
+Signals because compiler-run provenance is not wired into the worker. Missing
+event declarations also remain Signals because ABI absence alone cannot prove
+required logs are not emitted. The screen does not verify ERC-20 behavior and
+is not yet wired into the normal scan CLI. No Verified Gas producer exists yet.
 
 ## Benchmark harness (A/B/C costs)
 
