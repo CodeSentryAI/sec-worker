@@ -75,7 +75,7 @@ export async function buildStandardJsonInput(sourceRoot: string): Promise<{ inpu
     sources,
     settings: {
       outputSelection: {
-        "*": { "*": ["abi"], "": ["ast"] },
+        "*": { "*": ["abi", "evm.bytecode.object", "evm.deployedBytecode.object"], "": ["ast"] },
       },
     },
   };
@@ -89,12 +89,10 @@ function selectedFindingToVerified(finding: Finding, metadata: Erc20CompileMetad
   const raw = jsonObject(finding.raw) ?? {};
   const sourcePointer = typeof raw.source_content_pointer === "string" ? raw.source_content_pointer : "";
   const abiPointer = typeof raw.compiler_abi_pointer === "string" ? raw.compiler_abi_pointer : "";
-  const sourceEvidence = sourcePointer.includes("#")
-    ? `${metadata.input_artifact}${sourcePointer.slice(sourcePointer.indexOf("#"))}`
-    : metadata.input_artifact;
-  const abiEvidence = abiPointer.includes("#")
-    ? `${metadata.output_artifact}${abiPointer.slice(abiPointer.indexOf("#"))}`
-    : metadata.output_artifact;
+  if (!sourcePointer.startsWith("solc-input.json#/sources/")
+    || !abiPointer.startsWith("solc-output.json#/contracts/")) return finding;
+  const sourceEvidence = `${metadata.input_artifact}${sourcePointer.slice("solc-input.json".length)}`;
+  const abiEvidence = `${metadata.output_artifact}${abiPointer.slice("solc-output.json".length)}`;
   const evidence: [string, ...string[]] = [
     `${metadata.input_artifact} sha256:${metadata.input_sha256}`,
     `${metadata.output_artifact} sha256:${metadata.output_sha256}`,
@@ -121,7 +119,7 @@ function selectedFindingToVerified(finding: Finding, metadata: Erc20CompileMetad
 }
 
 /** Apply the trust upgrade only after the complete compiler evidence contract passes. */
-export function promoteErc20AbiFindings(findings: Finding[], metadata: Erc20CompileMetadata): Finding[] {
+function promoteErc20AbiFindings(findings: Finding[], metadata: Erc20CompileMetadata): Finding[] {
   if (metadata.status !== "complete") return findings;
   return findings.map((finding) => selectedFindingToVerified(finding, metadata));
 }

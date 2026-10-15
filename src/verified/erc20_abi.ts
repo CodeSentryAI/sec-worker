@@ -67,7 +67,8 @@ function lineAt(source: string, byteOffset: number): number {
 }
 
 function jsonPointerPart(value: string): string {
-  return value.replaceAll("~", "~0").replaceAll("/", "~1");
+  const token = value.replaceAll("~", "~0").replaceAll("/", "~1");
+  return encodeURIComponent(token);
 }
 
 function containsInlineAssembly(value: unknown): boolean {
@@ -162,14 +163,13 @@ export function checkErc20Abi(
   if (!contractNode) {
     return { status: "indeterminate", findings: [], reason: `contract AST not found: ${target.source_path}::${target.contract_name}` };
   }
-  if (contractNode.contractKind === "library") {
-    return { status: "not-applicable", findings: [], reason: "libraries are not evaluated as ERC-20 contract implementations" };
+  if (contractNode.contractKind === "library" || contractNode.contractKind === "interface") {
+    return { status: "not-applicable", findings: [], reason: "libraries and interfaces are not evaluated as deployable ERC-20 implementations" };
   }
-  if (contractNode.contractKind !== "contract" && contractNode.contractKind !== "interface") {
+  if (contractNode.contractKind !== "contract") {
     return { status: "indeterminate", findings: [], reason: "contract AST has no recognized contract kind" };
   }
-  if ((contractNode.abstract === true || contractNode.fullyImplemented === false)
-    && contractNode.contractKind !== "interface") {
+  if (contractNode.abstract === true || contractNode.fullyImplemented === false) {
     return { status: "not-applicable", findings: [], reason: "abstract contracts are not evaluated as deployable ERC-20 implementations" };
   }
   if (!Array.isArray(contractNode.linearizedBaseContracts)
@@ -194,13 +194,17 @@ export function checkErc20Abi(
     || ancestorContracts.some((node) => !node)) {
     return { status: "indeterminate", findings: [], reason: "one or more inherited contract ASTs are unavailable" };
   }
-  if (ancestorContracts.some((ancestor) => {
-    const nodes = Array.isArray(ancestor?.nodes) ? ancestor.nodes.map(object) : [];
-    return nodes.some((node) => node?.nodeType === "FunctionDefinition"
-      && node.kind === "constructor"
-      && containsInlineAssembly(node.body));
-  })) {
-    return { status: "indeterminate", findings: [], reason: "constructor assembly may return runtime code outside the compiler ABI model" };
+  // Constructor modifiers and internal helpers can execute assembly that returns
+  // arbitrary runtime code. An AST-only call graph cannot establish reachability
+  // through libraries, so the whole compilation unit is conservatively gated.
+  for (const source of Object.values(outputSources)) {
+    const sourceAst = object(object(source)?.ast);
+    if (!sourceAst) {
+      return { status: "indeterminate", findings: [], reason: "source AST is missing from the compiler output" };
+    }
+    if (containsInlineAssembly(sourceAst)) {
+      return { status: "indeterminate", findings: [], reason: "source assembly may return runtime code outside the compiler ABI model" };
+    }
   }
   const members = ancestorContracts.flatMap((ancestor) =>
     Array.isArray(ancestor?.nodes) ? ancestor.nodes.map(object) : []);
@@ -211,6 +215,14 @@ export function checkErc20Abi(
   const abi = compiledContract?.abi;
   if (!Array.isArray(abi) || !abi.every(isAbiEntry)) {
     return { status: "indeterminate", findings: [], reason: "compiled contract ABI is missing or malformed" };
+  }
+  const creationBytecode = object(object(compiledContract?.evm)?.bytecode)?.object;
+  if (typeof creationBytecode !== "string" || !/^(?:[0-9a-fA-F]{2})+$/.test(creationBytecode)) {
+    return { status: "indeterminate", findings: [], reason: "target creation bytecode is missing, empty, or unresolved" };
+  }
+  const runtimeBytecode = object(object(compiledContract?.evm)?.deployedBytecode)?.object;
+  if (typeof runtimeBytecode !== "string" || !/^(?:[0-9a-fA-F]{2})+$/.test(runtimeBytecode)) {
+    return { status: "indeterminate", findings: [], reason: "target runtime bytecode is missing, empty, or unresolved" };
   }
   const actualAbi = abi as AbiEntry[];
   if (members.some((node) => node?.nodeType === "FunctionDefinition" && node.kind === "fallback")
@@ -260,7 +272,7 @@ export function checkErc20Abi(
         raw: {
           target,
           compiler_version: compilerVersion,
-          compiler_abi_pointer: `solc-output.json${pointer}`,
+          compiler_abi_pointer: `solc-output.json#${pointer}`,
           source_content_pointer: `solc-input.json#/sources/${jsonPointerPart(target.source_path)}/content`,
           missing_item: requirement,
           observed_abi: actualAbi,

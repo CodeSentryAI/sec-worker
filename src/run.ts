@@ -16,6 +16,7 @@ import path from "node:path";
 import { runDetector } from "./detectors/registry.ts";
 import type { Finding } from "./types.ts";
 import { runErc20AbiCompile, type Erc20CompileMetadata } from "./verified/erc20_compile.ts";
+import { aggregateRunStatus } from "./run_status.ts";
 
 function usage(): never {
   console.error("usage: sec-detect --detector <id> --input <dir> --output <dir> [--checkers a,b] [--keep-staging] [--erc20-source <source-path> --erc20-contract <name>]");
@@ -87,27 +88,26 @@ async function main(): Promise<void> {
     erc20AbiMetadata = check.metadata;
   }
 
+  const runStatus = aggregateRunStatus(outcome, erc20AbiMetadata, outcome.findings.length);
   const runMeta = {
     detector: detectorId,
     detectorVersion: outcome.version,
-    ok: outcome.ok,
-    timedOut: outcome.timedOut,
-    exitCode: outcome.exitCode,
+    ...runStatus,
     findingsCount: outcome.findings.length,
     verifiedCount: outcome.findings.filter((f) => f.trust_tier === "verified").length,
     signalCount: outcome.findings.filter((f) => f.trust_tier === "signal").length,
     reportPath: outcome.reportPath,
     erc20Abi: erc20AbiMetadata,
-    durationMs: outcome.durationMs,
+    durationMs,
     finishedAt: new Date().toISOString(),
   };
   await writeFile(path.join(outputAbs, "run.json"), JSON.stringify(runMeta, null, 2));
   await writeFile(path.join(outputAbs, "findings.json"), JSON.stringify(outcome.findings, null, 2));
 
   console.log(`detector:   ${detectorId} (${outcome.version})`);
-  console.log(`ok:         ${outcome.ok}${outcome.timedOut ? " (TIMED OUT)" : ""}`);
-  console.log(`exit code:  ${outcome.exitCode}`);
-  console.log(`duration:   ${outcome.durationMs} ms`);
+  console.log(`ok:         ${runMeta.ok}${runMeta.timedOut ? " (TIMED OUT)" : ""}`);
+  console.log(`exit code:  ${runMeta.exitCode}`);
+  console.log(`duration:   ${runMeta.durationMs} ms`);
   console.log(`findings:   ${outcome.findings.length}`);
   console.log(`verified:   ${runMeta.verifiedCount}`);
   console.log(`signals:    ${runMeta.signalCount}`);
@@ -123,7 +123,7 @@ async function main(): Promise<void> {
     console.error(`--- stderr tail ---\n${outcome.stderrExcerpt}`);
   }
 
-  process.exit(!outcome.ok ? 2 : outcome.findings.length > 0 ? 1 : 0);
+  process.exit(runMeta.exitCode);
 }
 
 main();

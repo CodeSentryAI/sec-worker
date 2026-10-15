@@ -39,7 +39,7 @@ function compilation(abi: unknown[], astMembers: unknown[] = []) {
     input: { sources: { [TARGET.source_path]: { content: source } } },
     output: {
       errors: [],
-      contracts: { [TARGET.source_path]: { [TARGET.contract_name]: { abi } } },
+      contracts: { [TARGET.source_path]: { [TARGET.contract_name]: { abi, evm: { bytecode: { object: "60006000f3" }, deployedBytecode: { object: "6000f3" } } } } },
       sources: {
         [TARGET.source_path]: {
           id: 0,
@@ -89,13 +89,34 @@ test("missing ABI methods and omitted event declarations remain Signals before c
   assert.ok(method);
   assert.equal(method.trust_tier, "signal");
   assert.equal("verification" in method, false);
-  assert.equal(method.raw && (method.raw as { compiler_abi_pointer?: string }).compiler_abi_pointer?.includes("/contracts/"), true);
+  assert.equal((method.raw as { compiler_abi_pointer?: string }).compiler_abi_pointer,
+    "solc-output.json#/contracts/src~1Token.sol/Token/abi");
   assert.equal(method.location.file, TARGET.source_path);
   assert.equal(method.location.line, 2, "source offset is a UTF-8 byte offset");
   assert.ok(event);
   assert.equal(event.confidence, "low");
   assert.equal("verification" in event, false);
   assert.equal(event.location.line, 2);
+});
+
+test("JSON Pointer fragments percent-encode special Solidity source path characters", () => {
+  const { input, output } = compilation([]);
+  const sourcePath = "src/#Token%.sol";
+  input.sources[sourcePath] = input.sources[TARGET.source_path]!;
+  delete input.sources[TARGET.source_path];
+  output.sources[sourcePath] = output.sources[TARGET.source_path]!;
+  delete output.sources[TARGET.source_path];
+  output.contracts[sourcePath] = output.contracts[TARGET.source_path]!;
+  delete output.contracts[TARGET.source_path];
+
+  const result = checkErc20Abi(input, output, { source_path: sourcePath, contract_name: TARGET.contract_name }, "0.8.28");
+  assert.equal(result.status, "complete");
+  const method = result.findings.find((finding) => finding.rule_id === "erc20-abi.function-not-listed");
+  assert.ok(method);
+  assert.equal((method.raw as { compiler_abi_pointer?: string }).compiler_abi_pointer,
+    "solc-output.json#/contracts/src~1%23Token%25.sol/Token/abi");
+  assert.equal((method.raw as { source_content_pointer?: string }).source_content_pointer,
+    "solc-input.json#/sources/src~1%23Token%25.sol/content");
 });
 
 test("anonymous ERC-20 event declarations do not satisfy the required event ABI shape", () => {
@@ -149,7 +170,49 @@ test("constructor assembly prevents Verified claims about ABI omissions", () => 
   const result = checkErc20Abi(input, output, TARGET, "0.8.28");
   assert.equal(result.status, "indeterminate");
   assert.equal(result.findings.length, 0);
-  if (result.status === "indeterminate") assert.match(result.reason, /constructor assembly/);
+  if (result.status === "indeterminate") assert.match(result.reason, /source assembly/);
+});
+
+test("constructor modifier assembly prevents Verified ABI claims", () => {
+  const { input, output } = compilation([], [
+    { nodeType: "ModifierDefinition", name: "setup", body: { nodeType: "Block", statements: [{ nodeType: "InlineAssembly", AST: { nodeType: "YulBlock", statements: [] } }] } },
+    { nodeType: "FunctionDefinition", kind: "constructor", modifiers: [{ nodeType: "ModifierInvocation", modifierName: { name: "setup" } }] },
+  ]);
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "indeterminate");
+  assert.equal(result.findings.length, 0);
+  if (result.status === "indeterminate") assert.match(result.reason, /source assembly/);
+});
+
+test("internal helper assembly reachable from constructor prevents Verified ABI claims", () => {
+  const { input, output } = compilation([], [
+    { nodeType: "FunctionDefinition", kind: "constructor", body: { nodeType: "Block", statements: [{ nodeType: "ExpressionStatement", expression: { nodeType: "FunctionCall", expression: { name: "runtime" } } }] } },
+    { nodeType: "FunctionDefinition", kind: "function", name: "runtime", visibility: "internal", body: { nodeType: "Block", statements: [{ nodeType: "InlineAssembly", AST: { nodeType: "YulBlock", statements: [] } }] } },
+  ]);
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "indeterminate");
+  assert.equal(result.findings.length, 0);
+  if (result.status === "indeterminate") assert.match(result.reason, /source assembly/);
+});
+
+test("ABI-only output cannot produce Verified claims without target creation bytecode", () => {
+  const { input, output } = compilation([]);
+  output.contracts[TARGET.source_path]![TARGET.contract_name]!.evm.bytecode.object = "";
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "indeterminate");
+  assert.equal(result.findings.length, 0);
+  if (result.status === "indeterminate") assert.match(result.reason, /creation bytecode/);
+});
+
+test("missing or unresolved target runtime bytecode prevents Verified ABI claims", () => {
+  for (const bytecode of ["", "__$unresolved$__"]) {
+    const { input, output } = compilation([]);
+    output.contracts[TARGET.source_path]![TARGET.contract_name]!.evm.deployedBytecode.object = bytecode;
+    const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+    assert.equal(result.status, "indeterminate");
+    assert.equal(result.findings.length, 0);
+    if (result.status === "indeterminate") assert.match(result.reason, /runtime bytecode/);
+  }
 });
 
 test("abstract contracts and compilation failures are not scored as ABI violations", () => {
@@ -167,6 +230,14 @@ test("abstract contracts and compilation failures are not scored as ABI violatio
 test("libraries are not treated as ERC-20 contract implementations", () => {
   const { input, output } = compilation([]);
   output.sources[TARGET.source_path]!.ast.nodes[0]!.contractKind = "library";
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "not-applicable");
+  assert.equal(result.findings.length, 0);
+});
+
+test("interfaces are not treated as deployable ERC-20 implementations", () => {
+  const { input, output } = compilation([]);
+  output.sources[TARGET.source_path]!.ast.nodes[0]!.contractKind = "interface";
   const result = checkErc20Abi(input, output, TARGET, "0.8.28");
   assert.equal(result.status, "not-applicable");
   assert.equal(result.findings.length, 0);
