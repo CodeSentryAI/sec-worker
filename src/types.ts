@@ -46,6 +46,7 @@ export interface SandboxResult {
 
 export type Severity = "critical" | "high" | "medium" | "low" | "informational";
 export type Confidence = "high" | "medium" | "low";
+export type TrustTier = "verified" | "signal";
 
 export interface FindingLocation {
   file: string;
@@ -53,21 +54,38 @@ export interface FindingLocation {
   column?: number;
 }
 
-/**
- * The single normalized finding format every detector must emit.
- * The LLM later consumes these as evidence, never as "verified bug".
- */
-export interface Finding {
+/** Common report data shared by verified results and unverified signals. */
+interface FindingBase {
   rule_id: string;
   ecosystem: "rust" | "solidity";
   detector: string;
   severity: Severity;
   confidence: Confidence;
+  /** Evidence produced by the source detector; this alone does not mean verified. */
   evidence_level: "static-evidence";
   location: FindingLocation;
   message: string;
   raw: unknown;
 }
+
+/** A broad candidate from a detector that has not passed a product verifier. */
+export interface SecuritySignal extends FindingBase {
+  trust_tier: "signal";
+  verification?: never;
+}
+
+/** A result promoted by a named validator with retained, inspectable evidence. */
+export interface VerifiedFinding extends FindingBase {
+  trust_tier: "verified";
+  verification: {
+    verifier_id: string;
+    verifier_version: string;
+    evidence: [string, ...string[]];
+  };
+}
+
+/** The discriminant prevents a verified result from omitting its validation record. */
+export type Finding = SecuritySignal | VerifiedFinding;
 
 export interface DetectorRunResult {
   detector: string;

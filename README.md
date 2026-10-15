@@ -65,7 +65,9 @@ output dir; raw detector reports are kept alongside as evidence.
   "detector": "lockbud-stable 0.1.0 (nightly-2026-02-07…)",
   "severity": "critical|high|medium|low|informational",
   "confidence": "high|medium|low",
+  "trust_tier": "signal" | "verified",
   "evidence_level": "static-evidence",
+  "verification": { "verifier_id": "…", "verifier_version": "…", "evidence": ["…"] },
   "location": { "file": "src/main.rs", "line": 6, "column": 18 },
   "message": "…",
   "raw": { /* original detector item, preserved for evidence */ }
@@ -74,6 +76,19 @@ output dir; raw detector reports are kept alongside as evidence.
 
 The detector's evidence grade is authoritative; a later LLM review stage may
 explain or downgrade findings but must not upgrade them.
+
+### Trust tier
+
+`trust_tier` is independent of severity and detector confidence:
+
+- `signal`: a detector candidate that has not passed a ChainFox verifier.
+- `verified`: a result with a named verifier, verifier version, and at least
+  one retained evidence reference.
+
+The current Lockbud and Slither/peCatch adapters always emit `signal`, including
+high-confidence or high-severity findings. A detector's own confidence is not a
+verification result. The worker currently has no Verified Gas or ERC rule
+producer, so it reports zero verified findings until such a verifier is added.
 
 ## Benchmark harness (A/B/C costs)
 

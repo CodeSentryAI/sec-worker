@@ -161,6 +161,7 @@ export function normalizeReport(report: LockbudReport, detectorVersion: string):
       detector: detectorVersion,
       severity: normSeverity(f.severity),
       confidence: normConfidence(f.confidence),
+      trust_tier: "signal",
       evidence_level: "static-evidence",
       location: { file: parsed.file, line: loc.line ?? parsed.line, column: loc.column ?? parsed.column },
       message: f.title ?? f.explanation ?? "lockbud-stable concurrency finding",

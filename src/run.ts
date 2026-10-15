@@ -76,6 +76,8 @@ async function main(): Promise<void> {
     timedOut: outcome.timedOut,
     exitCode: outcome.exitCode,
     findingsCount: outcome.findings.length,
+    verifiedCount: outcome.findings.filter((f) => f.trust_tier === "verified").length,
+    signalCount: outcome.findings.filter((f) => f.trust_tier === "signal").length,
     reportPath: outcome.reportPath,
     durationMs: outcome.durationMs,
     finishedAt: new Date().toISOString(),
@@ -88,9 +90,11 @@ async function main(): Promise<void> {
   console.log(`exit code:  ${outcome.exitCode}`);
   console.log(`duration:   ${outcome.durationMs} ms`);
   console.log(`findings:   ${outcome.findings.length}`);
+  console.log(`verified:   ${runMeta.verifiedCount}`);
+  console.log(`signals:    ${runMeta.signalCount}`);
   for (const f of outcome.findings as Finding[]) {
     const loc = `${f.location.file}${f.location.line ? `:${f.location.line}` : ""}`;
-    console.log(`  [${f.severity}/${f.confidence}] ${f.rule_id} at ${loc}`);
+    console.log(`  [${f.trust_tier.toUpperCase()} ${f.severity}/${f.confidence}] ${f.rule_id} at ${loc}`);
   }
   if (!outcome.ok && outcome.stderrExcerpt) {
     console.error(`--- stderr tail ---\n${outcome.stderrExcerpt}`);

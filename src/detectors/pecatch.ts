@@ -243,6 +243,7 @@ export function normalizeReport(report: SlitherReport, inputPrefix: string, vers
       detector: version,
       severity: normSeverity(d.impact),
       confidence: normConfidence(d.confidence),
+      trust_tier: "signal",
       evidence_level: "static-evidence",
       location: { file, line },
       message: `${descFirstLine}${elementName}`,
