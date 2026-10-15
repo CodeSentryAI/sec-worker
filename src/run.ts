@@ -15,9 +15,10 @@ import { mkdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { runDetector } from "./detectors/registry.ts";
 import type { Finding } from "./types.ts";
+import { runErc20AbiCompile, type Erc20CompileMetadata } from "./verified/erc20_compile.ts";
 
 function usage(): never {
-  console.error("usage: sec-detect --detector <id> --input <dir> --output <dir> [--checkers a,b] [--keep-staging]");
+  console.error("usage: sec-detect --detector <id> --input <dir> --output <dir> [--checkers a,b] [--keep-staging] [--erc20-source <source-path> --erc20-contract <name>]");
   process.exit(2);
 }
 
@@ -43,7 +44,14 @@ async function main(): Promise<void> {
   const detectorId = String(args.detector ?? "");
   const inputDir = String(args.input ?? "");
   const outputDir = String(args.output ?? "");
+  const erc20Source = typeof args["erc20-source"] === "string" ? args["erc20-source"] : undefined;
+  const erc20Contract = typeof args["erc20-contract"] === "string" ? args["erc20-contract"] : undefined;
   if (!detectorId || !inputDir || !outputDir) usage();
+  if (Boolean(erc20Source) !== Boolean(erc20Contract)) usage();
+  if (erc20Source && detectorId !== "pecatch") {
+    console.error("error: --erc20-source/--erc20-contract require --detector pecatch");
+    process.exit(2);
+  }
 
   const inStat = await stat(inputDir).catch(() => null);
   if (!inStat?.isDirectory()) {
@@ -69,6 +77,16 @@ async function main(): Promise<void> {
     process.exit(2);
   }
 
+  let erc20AbiMetadata: Erc20CompileMetadata | undefined;
+  if (erc20Source && erc20Contract) {
+    const check = await runErc20AbiCompile(inputAbs, {
+      source_path: erc20Source,
+      contract_name: erc20Contract,
+    }, outputAbs);
+    outcome.findings.push(...check.findings);
+    erc20AbiMetadata = check.metadata;
+  }
+
   const runMeta = {
     detector: detectorId,
     detectorVersion: outcome.version,
@@ -79,6 +97,7 @@ async function main(): Promise<void> {
     verifiedCount: outcome.findings.filter((f) => f.trust_tier === "verified").length,
     signalCount: outcome.findings.filter((f) => f.trust_tier === "signal").length,
     reportPath: outcome.reportPath,
+    erc20Abi: erc20AbiMetadata,
     durationMs: outcome.durationMs,
     finishedAt: new Date().toISOString(),
   };
@@ -92,6 +111,10 @@ async function main(): Promise<void> {
   console.log(`findings:   ${outcome.findings.length}`);
   console.log(`verified:   ${runMeta.verifiedCount}`);
   console.log(`signals:    ${runMeta.signalCount}`);
+  if (erc20AbiMetadata) {
+    const reason = erc20AbiMetadata.reason ? ` — ${erc20AbiMetadata.reason}` : "";
+    console.log(`ERC-20 ABI: ${erc20AbiMetadata.status}${reason}`);
+  }
   for (const f of outcome.findings as Finding[]) {
     const loc = `${f.location.file}${f.location.line ? `:${f.location.line}` : ""}`;
     console.log(`  [${f.trust_tier.toUpperCase()} ${f.severity}/${f.confidence}] ${f.rule_id} at ${loc}`);

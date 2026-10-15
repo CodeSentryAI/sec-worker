@@ -87,11 +87,26 @@ explain or downgrade findings but must not upgrade them.
 
 The current Lockbud and Slither/peCatch adapters always emit `signal`, including
 high-confidence or high-severity findings. A detector's own confidence is not a
-verification result. An experimental ERC-20 ABI screen currently emits only
-Signals because compiler-run provenance is not wired into the worker. Missing
-event declarations also remain Signals because ABI absence alone cannot prove
-required logs are not emitted. The screen does not verify ERC-20 behavior and
-is not yet wired into the normal scan CLI. No Verified Gas producer exists yet.
+verification result. An opt-in ERC-20 ABI screen is now wired into `sec-detect`
+with `--erc20-source` and `--erc20-contract`. It runs solc on a captured
+Standard JSON source bundle and retains the input, output, selected/reported
+compiler version, and compiler binary hash. Missing mandatory function ABI
+entries can be Verified against those artifacts; missing event declarations
+remain Signals because ABI absence alone cannot prove required logs are not
+emitted. This screen does not verify ERC-20 behavior. No Verified Gas producer
+exists yet.
+
+Example:
+
+```bash
+npm run detect -- --detector pecatch --input ./project --output ./scan \
+  --erc20-source contracts/Token.sol --erc20-contract Token
+```
+
+Compilation failures and incomplete provenance are reported as an indeterminate
+ERC-20 screen in `run.json`; they do not produce ERC-20 findings. Successful
+screens retain run-scoped `erc20-*-solc-input.json`, `erc20-*-solc-output.json`,
+version, and provenance artifacts beside the normal report.
 
 ## Benchmark harness (A/B/C costs)
 

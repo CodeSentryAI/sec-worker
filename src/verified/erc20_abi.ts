@@ -20,6 +20,7 @@ interface AbiParameter {
 interface AbiEntry {
   type?: string;
   name?: string;
+  anonymous?: boolean;
   inputs?: AbiParameter[];
   outputs?: AbiParameter[];
 }
@@ -79,6 +80,7 @@ function containsInlineAssembly(value: unknown): boolean {
 
 function matches(entry: AbiEntry, requirement: Requirement): boolean {
   if (entry.type !== requirement.type || entry.name !== requirement.name) return false;
+  if (requirement.type === "event" && entry.anonymous !== false) return false;
   const actualInputs = entry.inputs ?? [];
   if (actualInputs.length !== requirement.inputs.length) return false;
   if (!actualInputs.every((item, index) => {
@@ -98,6 +100,7 @@ function isAbiEntry(value: unknown): value is AbiEntry {
   const entry = object(value);
   if (!entry || !["function", "event", "error", "constructor", "fallback", "receive"].includes(String(entry.type))) return false;
   if (["function", "event", "error"].includes(String(entry.type)) && typeof entry.name !== "string") return false;
+  if (entry.type === "event" && entry.anonymous !== undefined && typeof entry.anonymous !== "boolean") return false;
   for (const key of ["inputs", "outputs"] as const) {
     const params = entry[key];
     const required = key === "inputs"
@@ -114,8 +117,8 @@ function isAbiEntry(value: unknown): value is AbiEntry {
 }
 
 /**
- * Verify only the mandatory ERC-20 ABI surface for one explicitly selected
- * concrete contract. This does not claim behavioral ERC-20 compliance.
+ * Inspect only the mandatory ERC-20 ABI surface for one explicitly selected
+ * contract or interface. This does not claim behavioral ERC-20 compliance.
  *
  * The check is indeterminate when a fallback can dispatch undeclared selectors,
  * since the ABI alone cannot establish which behavior it implements.
@@ -159,6 +162,12 @@ export function checkErc20Abi(
   if (!contractNode) {
     return { status: "indeterminate", findings: [], reason: `contract AST not found: ${target.source_path}::${target.contract_name}` };
   }
+  if (contractNode.contractKind === "library") {
+    return { status: "not-applicable", findings: [], reason: "libraries are not evaluated as ERC-20 contract implementations" };
+  }
+  if (contractNode.contractKind !== "contract" && contractNode.contractKind !== "interface") {
+    return { status: "indeterminate", findings: [], reason: "contract AST has no recognized contract kind" };
+  }
   if ((contractNode.abstract === true || contractNode.fullyImplemented === false)
     && contractNode.contractKind !== "interface") {
     return { status: "not-applicable", findings: [], reason: "abstract contracts are not evaluated as deployable ERC-20 implementations" };
@@ -193,7 +202,8 @@ export function checkErc20Abi(
   })) {
     return { status: "indeterminate", findings: [], reason: "constructor assembly may return runtime code outside the compiler ABI model" };
   }
-  const members = Array.isArray(contractNode.nodes) ? contractNode.nodes.map(object) : [];
+  const members = ancestorContracts.flatMap((ancestor) =>
+    Array.isArray(ancestor?.nodes) ? ancestor.nodes.map(object) : []);
 
   const contracts = object(outObj?.contracts);
   const sourceContracts = object(contracts?.[target.source_path]);
@@ -246,7 +256,7 @@ export function checkErc20Abi(
         trust_tier: "signal",
         evidence_level: "static-evidence",
         location: { file: target.source_path, line: lineAt(sourceText, span.start) },
-        message: `Compiler ABI for the selected contract does not list the mandatory ERC-20 item ${missingItem}; compiler-run provenance is not yet wired into the worker`,
+        message: `Compiler ABI for the selected contract does not list the mandatory ERC-20 item ${missingItem}`,
         raw: {
           target,
           compiler_version: compilerVersion,

@@ -18,16 +18,17 @@ not required by this rule.
 
 ## Trust behavior
 
-- Missing mandatory function signatures are currently `signal` findings.
-  The checker has not yet been connected to the worker's compiler execution,
-  so it cannot bind the Standard JSON input to the output that it received.
-  Do not promote these findings to `verified` until that provenance path is
-  implemented and tested.
-- Once compiler execution is integrated, the planned Verified scope requires
-  matching complete source path sets, a successful solc run, target and C3
-  ancestor AST identities, and no constructor with inline assembly. A fallback
-  makes the result indeterminate because it can dispatch selectors absent from
-  the ABI.
+- Missing mandatory function signatures are `verified` only when the normal
+  `sec-detect` path performs a successful controlled Standard JSON compile and
+  retains the exact input/output artifacts and compiler identity. The evidence
+  includes SHA-256 references for the input, output, and copied compiler binary.
+- The Verified scope requires matching complete source path sets, a successful
+  solc run, target and C3 ancestor AST identities, and no constructor with
+  inline assembly. A fallback in the target or any ancestor makes the result
+  indeterminate because it can dispatch selectors absent from the ABI.
+- Direct calls to the pure `checkErc20Abi` library function still emit Signals;
+  only `runErc20AbiCompile` can attach compiler-run provenance and promote
+  missing function entries.
 - Missing or mis-shaped `Transfer` and `Approval` ABI declarations are
   `signal` findings. The contract may still emit the required logs directly,
   so ABI absence alone does not prove behavioral noncompliance.
@@ -36,9 +37,11 @@ not required by this rule.
 - A clean ABI result does **not** verify ERC-20 behavior. It says nothing about
   balances, allowances, return values at runtime, zero-value transfers,
   emitted logs, reverts, or authorization.
-- Findings retain compiler ABI and source content JSON pointers. This checker is
-  currently a library API and is not integrated into `sec-detect`; end-to-end
-  compilation provenance is an open integration gate.
+- Findings retain compiler ABI and source content JSON pointers. Run-scoped raw
+  Standard JSON input/output, version output, and a provenance JSON file are
+  retained next to the scan report. The source tree is compiled as one bundle;
+  framework-specific remappings and build settings are not inferred yet, so a
+  project that needs them will fail closed rather than produce a result.
 
 ## Explicit non-goals
 

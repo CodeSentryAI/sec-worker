@@ -14,6 +14,7 @@ const functionAbi = (name: string, inputs: string[], output: string) => ({
 const eventAbi = (name: string) => ({
   type: "event",
   name,
+  anonymous: false,
   inputs: [
     { type: "address", indexed: true },
     { type: "address", indexed: true },
@@ -47,6 +48,7 @@ function compilation(abi: unknown[], astMembers: unknown[] = []) {
             nodes: [{
               id: 1,
               nodeType: "ContractDefinition",
+              contractKind: "contract",
               id: 1,
               name: TARGET.contract_name,
               abstract: false,
@@ -79,7 +81,7 @@ test("missing ABI methods and omitted event declarations remain Signals before c
   assert.equal(result.status, "complete");
   assert.equal(result.findings.length, 2);
   assert.deepEqual(result.findings.map((finding) => finding.message).sort(), [
-    "Compiler ABI for the selected contract does not list the mandatory ERC-20 item function approve(address,uint256); compiler-run provenance is not yet wired into the worker",
+    "Compiler ABI for the selected contract does not list the mandatory ERC-20 item function approve(address,uint256)",
     "event Transfer(address,address,uint256) is absent from the compiler ABI; this alone does not show that the contract fails to emit the required event",
   ]);
   const method = result.findings.find((finding) => finding.rule_id === "erc20-abi.function-not-listed");
@@ -96,8 +98,42 @@ test("missing ABI methods and omitted event declarations remain Signals before c
   assert.equal(event.location.line, 2);
 });
 
+test("anonymous ERC-20 event declarations do not satisfy the required event ABI shape", () => {
+  const abi = completeAbi.map((item) => {
+    const entry = item as { type?: string; name?: string; anonymous?: boolean };
+    return entry.type === "event" && entry.name === "Transfer" ? { ...entry, anonymous: true } : item;
+  });
+  const { input, output } = compilation(abi);
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "complete");
+  assert.equal(result.findings.length, 1);
+  assert.equal(result.findings[0]?.rule_id, "erc20-abi.event-declaration-not-listed");
+  assert.equal(result.findings[0]?.trust_tier, "signal");
+});
+
 test("fallback presence makes absent ABI entries indeterminate", () => {
   const { input, output } = compilation([], [{ nodeType: "FunctionDefinition", kind: "fallback" }]);
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "indeterminate");
+  assert.equal(result.findings.length, 0);
+  if (result.status === "indeterminate") assert.match(result.reason, /fallback/);
+});
+
+test("an inherited fallback also makes absent ABI entries indeterminate", () => {
+  const { input, output } = compilation([]);
+  const nodes = output.sources[TARGET.source_path]!.ast.nodes;
+  const target = nodes[0]!;
+  target.linearizedBaseContracts.push(2);
+  nodes.push({
+    id: 2,
+    nodeType: "ContractDefinition",
+    name: "Base",
+    abstract: false,
+    fullyImplemented: true,
+    linearizedBaseContracts: [2],
+    src: "0:0:0",
+    nodes: [{ nodeType: "FunctionDefinition", kind: "fallback" }],
+  });
   const result = checkErc20Abi(input, output, TARGET, "0.8.28");
   assert.equal(result.status, "indeterminate");
   assert.equal(result.findings.length, 0);
@@ -125,6 +161,14 @@ test("abstract contracts and compilation failures are not scored as ABI violatio
   failed.output.errors = [{ severity: "error", message: "compile failed" }];
   const result = checkErc20Abi(failed.input, failed.output, TARGET, "0.8.28");
   assert.equal(result.status, "indeterminate");
+  assert.equal(result.findings.length, 0);
+});
+
+test("libraries are not treated as ERC-20 contract implementations", () => {
+  const { input, output } = compilation([]);
+  output.sources[TARGET.source_path]!.ast.nodes[0]!.contractKind = "library";
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "not-applicable");
   assert.equal(result.findings.length, 0);
 });
 
