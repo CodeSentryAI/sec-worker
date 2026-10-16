@@ -54,9 +54,23 @@ export interface FindingLocation {
   column?: number;
 }
 
+/** Stable SARIF rule namespace. Optional to keep existing detector output compatible. */
+export interface FindingRuleComponent {
+  kind: "driver" | "extension";
+  name: string;
+  guid?: string;
+  /** Tool extension index, used to disambiguate equal names when GUIDs are absent. */
+  component_index?: number;
+  /** Descriptor index within the component, distinguishing duplicate rule IDs. */
+  descriptor_index?: number;
+  descriptor_guid?: string;
+}
+
 /** Common report data shared by verified results and unverified signals. */
 interface FindingBase {
   rule_id: string;
+  /** Present for imported SARIF so equal rule IDs from different components stay distinct. */
+  rule_component?: FindingRuleComponent;
   ecosystem: "rust" | "solidity";
   detector: string;
   severity: Severity;

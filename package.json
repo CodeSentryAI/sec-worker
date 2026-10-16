@@ -9,6 +9,7 @@
   "description": "Sandboxed security-scan worker: bwrap-isolated detectors (lockbud-stable, peCatch/slither) producing normalized findings",
   "scripts": {
     "detect": "tsx src/run.ts",
+    "import-sarif": "tsx src/import_sarif_cli.ts",
     "selftest": "tsx src/selftest.ts",
     "bench": "tsx src/bench/run.ts",
     "oracle": "tsx src/oracle/run.ts",

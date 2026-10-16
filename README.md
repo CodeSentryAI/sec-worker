@@ -107,6 +107,26 @@ npm run detect -- --detector pecatch --input ./project --output ./scan \
   --erc20-source contracts/Token.sol --erc20-contract Token
 ```
 
+External SARIF 2.1.0 reports can be imported into the same finding schema:
+
+```bash
+npm run import-sarif -- --input ./report.sarif --output ./sarif-import
+```
+
+The importer retains the original report as `report.sarif`, writes normalized
+results to `findings.json`, and writes tool, rule, and import metadata to
+`run.json`. Imported results are always Signals; SARIF severity and confidence
+do not establish verification. Unsupported or malformed reports fail with a
+nonzero exit status and do not publish a partial output directory.
+Results without physical locations use `<unknown>`. File URIs become paths,
+retaining a non-empty URI authority as a leading `//host`; URI decoding preserves
+escaped reserved separators such as `%2F`. `uriBaseId` and artifact indices are
+resolved through run metadata when available; unresolved references remain
+explicit `unresolved-*` source identities. Nested artifacts retain a tagged
+`sarif-container:` identity with the full container chain. File URI paths and
+base-relative references with `..` segments are rejected before URI
+normalization. Escaped separators and escaped percent signs remain distinct.
+
 Compilation failures, incomplete provenance, bytecode-generation failures, and
 assembly-containing compilation units are reported as an indeterminate ERC-20
 screen in `run.json`; they do not produce ERC-20 findings. Successful screens
