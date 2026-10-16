@@ -9,11 +9,13 @@
   "description": "Sandboxed security-scan worker: bwrap-isolated detectors (lockbud-stable, peCatch/slither) producing normalized findings",
   "scripts": {
     "detect": "tsx src/run.ts",
+    "scan-repo": "tsx src/scan_repo_url.ts",
     "selftest": "tsx src/selftest.ts",
     "bench": "tsx src/bench/run.ts",
     "oracle": "tsx src/oracle/run.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "test:repo-url": "tsx --test tests/repo-url.test.ts"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
