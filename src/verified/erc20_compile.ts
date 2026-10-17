@@ -153,6 +153,8 @@ export async function runErc20AbiCompile(
   let truncated = false;
   let durationMs = 0;
   let findings: Finding[] = [];
+  let findingsToPromote: Finding[] = [];
+  let provenancePersisted = false;
   const metadata: Erc20CompileMetadata = {
     status: "indeterminate",
     reason: "compiler did not produce complete evidence",
@@ -256,7 +258,7 @@ export async function runErc20AbiCompile(
         if (checked.status === "complete") {
           metadata.status = "complete";
           delete metadata.reason;
-          findings = promoteErc20AbiFindings(checked.findings, metadata);
+          findingsToPromote = checked.findings;
         }
         else if (checked.status === "not-applicable") {
           metadata.status = "not-applicable";
@@ -278,12 +280,16 @@ export async function runErc20AbiCompile(
     metadata.duration_ms = durationMs;
     try {
       await writeFile(path.join(outputDir, provenanceArtifact), `${JSON.stringify(metadata, null, 2)}\n`, { flag: "wx" });
+      provenancePersisted = true;
     } catch (error) {
       metadata.status = "indeterminate";
       metadata.reason = `failed to persist compiler provenance: ${error instanceof Error ? error.message : String(error)}`;
       findings = [];
     }
     await rm(tempRoot, { recursive: true, force: true }).catch(() => {});
+  }
+  if (provenancePersisted && metadata.status === "complete") {
+    findings = promoteErc20AbiFindings(findingsToPromote, metadata);
   }
   return { findings, metadata };
 }
