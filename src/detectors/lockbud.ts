@@ -3,7 +3,7 @@ import { mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { toolchains, DEFAULT_LIMITS } from "../config.ts";
 import type { SandboxMount, SandboxRequest, SandboxResult, Finding, Severity, Confidence } from "../types.ts";
-import { isExecutable, readJson } from "../util.ts";
+import { isExecutable, readJsonArtifact } from "../util.ts";
 
 export interface LockbudReportFinding {
   lint?: string;
@@ -187,6 +187,9 @@ function validateLockbudReport(value: unknown): LockbudReport {
   if (!Array.isArray(value.findings)) throw new Error("report findings must be an array");
   for (const [index, finding] of value.findings.entries()) {
     if (!isRecord(finding)) throw new Error(`finding ${index} must be an object`);
+    if (typeof finding.lint !== "string" || finding.lint.trim() === "") {
+      throw new Error(`finding ${index}.lint must be a non-empty string`);
+    }
     for (const field of ["lint", "severity", "confidence", "title", "explanation"] as const) {
       if (finding[field] !== undefined && typeof finding[field] !== "string") {
         throw new Error(`finding ${index}.${field} must be a string`);
@@ -215,7 +218,7 @@ export async function collectResults(outputDir: string, result: SandboxResult, v
   let findings: Finding[] = [];
   let reportError: string | undefined;
   try {
-    const report = validateLockbudReport(await readJson<unknown>(reportPath));
+    const report = validateLockbudReport(await readJsonArtifact<unknown>(outputDir, "lockbud-report.json"));
     findings = normalizeReport(report, version);
   } catch (error) {
     reportError = `invalid Lockbud report: ${error instanceof Error ? error.message : String(error)}`;

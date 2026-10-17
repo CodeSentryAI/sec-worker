@@ -4,7 +4,7 @@ import { runSandboxed } from "../sandbox/bwrap.ts";
 import * as lockbud from "./lockbud.ts";
 import * as pecatch from "./pecatch.ts";
 import path from "node:path";
-import { mkdtemp, rm, stat } from "node:fs/promises";
+import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 export interface Detector {
@@ -124,8 +124,11 @@ export async function runDetector(opts: RunDetectorOptions): Promise<RunDetector
     const result = await runSandboxed(req);
     const { findings, reportPath, reportError } = await detector.collectResults(opts.outputDir, opts.inputDir, result, version);
 
-    const reportExists = await stat(reportPath).then(() => true).catch(() => false);
-    const status = assessDetectorExecution(detector, result, reportExists, reportError, findings.length);
+    // Collectors only leave reportError unset after the secure no-follow open,
+    // parse, and schema validation succeeds. Do not stat the pathname here:
+    // stat follows symlinks and could inspect an attacker-selected host target.
+    const reportValidated = reportError === undefined;
+    const status = assessDetectorExecution(detector, result, reportValidated, reportError, findings.length);
     return {
       version,
       ok: status.ok,

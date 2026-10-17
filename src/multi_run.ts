@@ -28,7 +28,10 @@ interface DetectorRecord {
   runnerOk: boolean | null;
   timedOut: boolean;
   exitCode: number | null;
+  /** Full host-side detector wall time, including prepare and report parsing. */
   durationMs: number;
+  /** Sandbox process time reported by the executor. */
+  sandboxDurationMs: number | null;
   rawReportPath: string | null;
   stderrExcerpt: string;
   error?: string;
@@ -148,7 +151,8 @@ export async function runMultiDetectorScan(options: MultiRunOptions) {
         runnerOk: outcome.ok,
         timedOut: outcome.timedOut,
         exitCode: outcome.exitCode,
-        durationMs: outcome.durationMs,
+        durationMs: Date.now() - started,
+        sandboxDurationMs: outcome.durationMs,
         rawReportPath,
         stderrExcerpt: outcome.stderrExcerpt,
         ...(outcome.error ? { error: outcome.error } : !rawReportPath
@@ -169,6 +173,7 @@ export async function runMultiDetectorScan(options: MultiRunOptions) {
         timedOut: false,
         exitCode: null,
         durationMs: Date.now() - started,
+        sandboxDurationMs: null,
         rawReportPath: null,
         stderrExcerpt: "",
         error: error instanceof Error ? error.message : String(error),

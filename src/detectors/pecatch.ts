@@ -2,10 +2,10 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { toolchains, PECATCH_CHECKERS, DEFAULT_LIMITS } from "../config.ts";
 import type { SandboxMount, SandboxRequest, SandboxResult, Finding, Severity, Confidence } from "../types.ts";
-import { isExecutable, listFilesRecursive, readJson } from "../util.ts";
+import { isExecutable, listFilesRecursive, readJsonArtifact } from "../util.ts";
 
 export interface SlitherDetectorResult {
-  check?: string;
+  check: string;
   impact?: string;
   confidence?: string;
   description?: string;
@@ -289,6 +289,9 @@ function validateSlitherReport(value: unknown): SlitherReport {
   const detectors = nestedDetectors ?? directDetectors ?? [];
   for (const [index, detector] of detectors.entries()) {
     if (!isRecord(detector)) throw new Error(`detector ${index} must be an object`);
+    if (typeof detector.check !== "string" || detector.check.trim() === "") {
+      throw new Error(`detector ${index}.check must be a non-empty string`);
+    }
     for (const field of ["check", "impact", "confidence", "description"] as const) {
       if (detector[field] !== undefined && typeof detector[field] !== "string") {
         throw new Error(`detector ${index}.${field} must be a string`);
@@ -324,7 +327,7 @@ export async function collectResults(outputDir: string, inputDir: string, result
   let findings: Finding[] = [];
   let reportError: string | undefined;
   try {
-    const report = validateSlitherReport(await readJson<unknown>(reportPath));
+    const report = validateSlitherReport(await readJsonArtifact<unknown>(outputDir, "slither-report.json"));
     findings = normalizeReport(report, inputDir, version);
   } catch (error) {
     reportError = `invalid Slither report: ${error instanceof Error ? error.message : String(error)}`;

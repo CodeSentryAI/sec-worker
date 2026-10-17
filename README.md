@@ -62,7 +62,7 @@ output dir; raw detector reports are kept alongside as evidence.
 The local multi-detector entry point accepts explicit detector IDs and requires
 that its output directory does not already exist or overlap the input. It runs
 detectors sequentially under `output/detectors/<id>/`, retains each detector's
-version, status, duration, error/timeout details, and raw report path, and
+version, status, host wall duration plus sandbox duration, error/timeout details, and raw report path, and
 publishes `report.json` (combined machine-readable report), `findings.json`, and
 `run.json` with aggregate `COMPLETE`, `PARTIAL`, or `FAILED` status and verified/
 signal counts. Findings from successful detectors remain in a partial report

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { collectResults as collectLockbud } from "../src/detectors/lockbud.ts";
@@ -43,6 +43,40 @@ test("both detector collectors report malformed JSON and invalid root shapes", a
       assert.equal(solidity.reportPath, path.join(output, "slither-report.json"));
       assert.match(solidity.reportError ?? "", invalidJson === "{" ? /invalid Slither report/ : /detectors array/);
     }
+  });
+});
+
+test("collectors reject forged valid reports behind sandbox-created symlinks without parsing them", async () => {
+  await fixture(async (root, input, output) => {
+    const outsideLockbud = path.join(root, "forged-lockbud.json");
+    const outsideSlither = path.join(root, "forged-slither.json");
+    await writeFile(outsideLockbud, JSON.stringify({ findings: [{ lint: "forged" }] }));
+    await writeFile(outsideSlither, JSON.stringify({ success: true, error: null, results: { detectors: [{ check: "forged" }] } }));
+    await symlink(outsideLockbud, path.join(output, "lockbud-report.json"));
+    await symlink(outsideSlither, path.join(output, "slither-report.json"));
+
+    const rust = await collectLockbud(output, sandboxResult, "lockbud test");
+    const solidity = await collectPecatch(output, input, sandboxResult, "pecatch test");
+    assert.deepEqual(rust.findings, []);
+    assert.deepEqual(solidity.findings, []);
+    assert.match(rust.reportError ?? "", /non-symlink/);
+    assert.match(solidity.reportError ?? "", /non-symlink/);
+  });
+});
+
+test("report findings require a non-empty detector identity", async () => {
+  await fixture(async (_root, input, output) => {
+    await writeFile(path.join(output, "lockbud-report.json"), JSON.stringify({ findings: [{}] }));
+    const rust = await collectLockbud(output, sandboxResult, "lockbud test");
+    assert.deepEqual(rust.findings, []);
+    assert.match(rust.reportError ?? "", /lint must be a non-empty string/);
+
+    await writeFile(path.join(output, "slither-report.json"), JSON.stringify({
+      success: true, error: null, results: { detectors: [{}] },
+    }));
+    const solidity = await collectPecatch(output, input, sandboxResult, "pecatch test");
+    assert.deepEqual(solidity.findings, []);
+    assert.match(solidity.reportError ?? "", /check must be a non-empty string/);
   });
 });
 

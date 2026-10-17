@@ -1,4 +1,5 @@
-import { readFile, readdir, stat } from "node:fs/promises";
+import { constants as fsConstants } from "node:fs";
+import { lstat, open, readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 export async function exists(p: string): Promise<boolean> {
@@ -30,6 +31,47 @@ export async function listFilesRecursive(root: string, maxDepth = 6): Promise<st
 
 export async function readJson<T>(p: string): Promise<T> {
   return JSON.parse(await readFile(p, "utf8")) as T;
+}
+
+/** Read a sandbox-written JSON artifact without following symlinks. */
+export async function readJsonArtifact<T>(outputDir: string, filename: string): Promise<T> {
+  if (path.basename(filename) !== filename || filename === "." || filename === "..") {
+    throw new Error("artifact name must be a direct child filename");
+  }
+  const rootInfo = await lstat(outputDir);
+  if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()) {
+    throw new Error("artifact output directory must be a regular directory");
+  }
+  const dirHandle = await open(outputDir, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY | fsConstants.O_NOFOLLOW);
+  try {
+    const openedRoot = await dirHandle.stat();
+    if (!openedRoot.isDirectory() || openedRoot.dev !== rootInfo.dev || openedRoot.ino !== rootInfo.ino) {
+      throw new Error("artifact output directory changed while opening");
+    }
+    // Resolve the child relative to the pinned directory fd for both lstat and
+    // open. No pathname outside this directory is considered or followed.
+    const artifactPath = `/proc/self/fd/${dirHandle.fd}/${filename}`;
+    const before = await lstat(artifactPath);
+    if (!before.isFile() || before.isSymbolicLink()) throw new Error("artifact must be a regular non-symlink file");
+
+    // O_NOFOLLOW rejects a final-component symlink even if the name changes
+    // after lstat. O_NONBLOCK avoids hanging if it is raced with a FIFO.
+    const artifactHandle = await open(
+      artifactPath,
+      fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW | fsConstants.O_NONBLOCK,
+    );
+    try {
+      const openedArtifact = await artifactHandle.stat();
+      if (!openedArtifact.isFile() || openedArtifact.dev !== before.dev || openedArtifact.ino !== before.ino) {
+        throw new Error("artifact changed while opening");
+      }
+      return JSON.parse(await artifactHandle.readFile("utf8")) as T;
+    } finally {
+      await artifactHandle.close();
+    }
+  } finally {
+    await dirHandle.close();
+  }
 }
 
 /** Copy a directory tree with regular files only (symlinks dereferenced). */

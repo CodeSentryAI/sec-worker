@@ -57,9 +57,10 @@ test("mixed detector outcomes keep successful findings and preserve per-detector
     const output = path.join(root, "out");
     const runner: MultiDetectorRunner = async ({ detectorId, outputDir }) => {
       if (detectorId === "lockbud-stable") throw new Error("prepare failed");
+      await new Promise((resolve) => setTimeout(resolve, 25));
       await writeFile(path.join(outputDir, "raw.json"), "{}\n");
       return outcome([finding("verified", "verified-rule"), finding("signal", "signal-rule")], {
-        reportPath: path.join(outputDir, "raw.json"), durationMs: 43,
+        reportPath: path.join(outputDir, "raw.json"), durationMs: 4,
       });
     };
     const result = await runMultiDetectorScan({
@@ -72,7 +73,8 @@ test("mixed detector outcomes keep successful findings and preserve per-detector
     assert.deepEqual(result.detectors.map((d) => d.status), ["ERROR", "SUCCESS"]);
     assert.equal(result.detectors[0]!.error, "prepare failed");
     assert.equal(result.detectors[1]!.version, "test-detector 1.2");
-    assert.equal(result.detectors[1]!.durationMs, 43);
+    assert.ok(result.detectors[1]!.durationMs >= 20, "host wall duration includes runner preparation/execution time");
+    assert.equal(result.detectors[1]!.sandboxDurationMs, 4);
     assert.equal(result.detectors[1]!.rawReportPath, "detectors/pecatch/raw.json");
     assert.equal(result.detectors[1]!.reportedFindingsCount, 2);
     assert.equal(result.detectors[1]!.acceptedFindingsCount, 2);
