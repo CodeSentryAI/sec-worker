@@ -257,14 +257,77 @@ export interface PecatchRunOutput {
   result: SandboxResult;
   findings: Finding[];
   reportPath: string;
+  reportError?: string;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function validateSlitherReport(value: unknown): SlitherReport {
+  if (!isRecord(value)) throw new Error("report root must be an object");
+  if (value.success !== undefined && typeof value.success !== "boolean") {
+    throw new Error("report success must be a boolean");
+  }
+  if (value.success === false) throw new Error("Slither reported unsuccessful analysis");
+  if (value.error !== undefined && value.error !== null) throw new Error("Slither report contains an error");
+  const results = value.results;
+  if (results !== undefined && !isRecord(results)) throw new Error("report results must be an object");
+  const nestedDetectors = isRecord(results) ? results.detectors : undefined;
+  const directDetectors = value.detectors;
+  if (nestedDetectors !== undefined && !Array.isArray(nestedDetectors)) {
+    throw new Error("report results.detectors must be an array");
+  }
+  if (directDetectors !== undefined && !Array.isArray(directDetectors)) {
+    throw new Error("report detectors must be an array");
+  }
+  // Slither 0.9.1 omits `results.detectors` when the result list is empty.
+  // Its successful, error-free JSON envelope is the authoritative clean report.
+  const hasDetectorArray = Array.isArray(nestedDetectors) || Array.isArray(directDetectors);
+  const canonicalCleanEnvelope = value.success === true && value.error === null && isRecord(results);
+  if (!hasDetectorArray && !canonicalCleanEnvelope) throw new Error("report must contain a detectors array or a successful empty-result envelope");
+  const detectors = nestedDetectors ?? directDetectors ?? [];
+  for (const [index, detector] of detectors.entries()) {
+    if (!isRecord(detector)) throw new Error(`detector ${index} must be an object`);
+    for (const field of ["check", "impact", "confidence", "description"] as const) {
+      if (detector[field] !== undefined && typeof detector[field] !== "string") {
+        throw new Error(`detector ${index}.${field} must be a string`);
+      }
+    }
+    if (detector.elements !== undefined) {
+      if (!Array.isArray(detector.elements)) throw new Error(`detector ${index}.elements must be an array`);
+      for (const [elementIndex, element] of detector.elements.entries()) {
+        if (!isRecord(element)) throw new Error(`detector ${index}.elements[${elementIndex}] must be an object`);
+        const mapping = element.source_mapping;
+        if (mapping !== undefined && !isRecord(mapping)) {
+          throw new Error(`detector ${index}.elements[${elementIndex}].source_mapping must be an object`);
+        }
+        if (isRecord(mapping)) {
+          for (const field of ["filename_absolute", "filename_relative"] as const) {
+            if (mapping[field] !== undefined && typeof mapping[field] !== "string") {
+              throw new Error(`detector ${index}.elements[${elementIndex}].source_mapping.${field} must be a string`);
+            }
+          }
+          if (mapping.lines !== undefined && (!Array.isArray(mapping.lines)
+            || mapping.lines.some((line) => typeof line !== "number"))) {
+            throw new Error(`detector ${index}.elements[${elementIndex}].source_mapping.lines must be a number array`);
+          }
+        }
+      }
+    }
+  }
+  return value as unknown as SlitherReport;
 }
 
 export async function collectResults(outputDir: string, inputDir: string, result: SandboxResult, version: string): Promise<PecatchRunOutput> {
   const reportPath = path.join(outputDir, "slither-report.json");
   let findings: Finding[] = [];
+  let reportError: string | undefined;
   try {
-    const report = await readJson<SlitherReport>(reportPath);
+    const report = validateSlitherReport(await readJson<unknown>(reportPath));
     findings = normalizeReport(report, inputDir, version);
-  } catch { /* report missing or unparseable: surfaced via ok=false */ }
-  return { result, findings, reportPath };
+  } catch (error) {
+    reportError = `invalid Slither report: ${error instanceof Error ? error.message : String(error)}`;
+  }
+  return { result, findings, reportPath, reportError };
 }

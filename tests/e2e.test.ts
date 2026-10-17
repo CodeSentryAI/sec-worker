@@ -49,7 +49,7 @@ test("lockbud-stable finds the fixture double-lock", { skip: !(await isExecutabl
   const input = path.join(PROJECT_ROOT, "tests", "fixtures", "rust-doublelock");
   await withOutput(async (out) => {
     const res = await runDetector({ detectorId: "lockbud-stable", inputDir: input, outputDir: out });
-    assert.equal(res.ok, true, `stderr: ${res.stderrExcerpt}`);
+    assert.equal(res.ok, true, `error: ${res.error ?? "none"}; stderr: ${res.stderrExcerpt}`);
     assert.equal(res.timedOut, false);
     assert.ok(res.findings.length >= 1, "expected at least one finding");
     assert.equal(res.findings[0]!.rule_id, "lockbud-stable.double-lock");
@@ -62,7 +62,7 @@ test("pecatch finds the fixture gas issues", { skip: !(await isExecutable(path.j
   const input = path.join(PROJECT_ROOT, "tests", "fixtures", "solidity-gas");
   await withOutput(async (out) => {
     const res = await runDetector({ detectorId: "pecatch", inputDir: input, outputDir: out });
-    assert.equal(res.ok, true, `stderr: ${res.stderrExcerpt}`);
+    assert.equal(res.ok, true, `error: ${res.error ?? "none"}; stderr: ${res.stderrExcerpt}`);
     const checks = res.findings.map((f) => f.rule_id);
     assert.ok(checks.includes("pecatch.and-in-if"), `checks: ${checks.join(",")}`);
     assert.ok(res.findings.every((f) => f.location.file === "GasIssues.sol"), `files: ${res.findings.map((f) => f.location.file).join(",")}`);

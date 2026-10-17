@@ -175,14 +175,50 @@ export interface LockbudRunOutput {
   result: SandboxResult;
   findings: Finding[];
   reportPath: string;
+  reportError?: string;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function validateLockbudReport(value: unknown): LockbudReport {
+  if (!isRecord(value)) throw new Error("report root must be an object");
+  if (!Array.isArray(value.findings)) throw new Error("report findings must be an array");
+  for (const [index, finding] of value.findings.entries()) {
+    if (!isRecord(finding)) throw new Error(`finding ${index} must be an object`);
+    for (const field of ["lint", "severity", "confidence", "title", "explanation"] as const) {
+      if (finding[field] !== undefined && typeof finding[field] !== "string") {
+        throw new Error(`finding ${index}.${field} must be a string`);
+      }
+    }
+    if (finding.primary_location !== undefined) {
+      if (!isRecord(finding.primary_location)) throw new Error(`finding ${index}.primary_location must be an object`);
+      const location = finding.primary_location;
+      for (const field of ["label", "file"] as const) {
+        if (location[field] !== undefined && typeof location[field] !== "string") {
+          throw new Error(`finding ${index}.primary_location.${field} must be a string`);
+        }
+      }
+      for (const field of ["line", "column"] as const) {
+        if (location[field] !== undefined && typeof location[field] !== "number") {
+          throw new Error(`finding ${index}.primary_location.${field} must be a number`);
+        }
+      }
+    }
+  }
+  return value as unknown as LockbudReport;
 }
 
 export async function collectResults(outputDir: string, result: SandboxResult, version: string): Promise<LockbudRunOutput> {
   const reportPath = path.join(outputDir, "lockbud-report.json");
   let findings: Finding[] = [];
+  let reportError: string | undefined;
   try {
-    const report = await readJson<LockbudReport>(reportPath);
+    const report = validateLockbudReport(await readJson<unknown>(reportPath));
     findings = normalizeReport(report, version);
-  } catch { /* report missing or unparseable: surfaced via ok=false */ }
-  return { result, findings, reportPath };
+  } catch (error) {
+    reportError = `invalid Lockbud report: ${error instanceof Error ? error.message : String(error)}`;
+  }
+  return { result, findings, reportPath, reportError };
 }

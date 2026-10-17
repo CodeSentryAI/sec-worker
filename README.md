@@ -48,6 +48,9 @@ npm run selftest
 npm run detect -- --detector lockbud-stable --input <dir> --output <dir>
 npm run detect -- --detector pecatch       --input <dir> --output <dir> [--checkers a,b,c]
 
+# run an explicit set sequentially, each with an isolated fresh output subtree
+npm run multi-detect -- --input <dir> --output <new-dir> --detectors pecatch,lockbud-stable
+
 # full suite (sandbox probes + detector e2e on fixtures)
 npm test
 ```
@@ -55,6 +58,21 @@ npm test
 Exit codes mirror lockbud's `detect.sh`: `0` clean, `1` findings, `2` error.
 Each run writes `findings.json` (normalized) and `run.json` (metadata) into the
 output dir; raw detector reports are kept alongside as evidence.
+
+The local multi-detector entry point accepts explicit detector IDs and requires
+that its output directory does not already exist or overlap the input. It runs
+detectors sequentially under `output/detectors/<id>/`, retains each detector's
+version, status, duration, error/timeout details, and raw report path, and
+publishes `report.json` (combined machine-readable report), `findings.json`, and
+`run.json` with aggregate `COMPLETE`, `PARTIAL`, or `FAILED` status and verified/
+signal counts. Findings from successful detectors remain in a partial report
+when another detector fails; findings returned by an ERROR or TIMEOUT outcome
+are counted as reported but are not accepted into the aggregate. A detector is
+SUCCESS only when it reports an existing regular, non-symlink raw report file
+inside its own output subtree; the published raw path is relative to the scan
+output and uses `/` separators. `COMPLETE` uses the same `0` clean / `1` findings
+exit semantics; `PARTIAL` and `FAILED` return `2`. This is a local scan/report
+path only; it does not add acquisition, caching, SARIF, or UI behavior.
 
 ## Findings schema (v1)
 
