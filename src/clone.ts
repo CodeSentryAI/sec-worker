@@ -25,7 +25,7 @@ export interface CloneRunner {
 }
 
 export type CloneErrorClassification =
-  | { reason: "CLONE_FAILED" | "CLONE_TIMEOUT" }
+  | { reason: "CLONE_FAILED" | "CLONE_TIMEOUT" | "QUOTA_UNAVAILABLE" }
   | { reason: "RESOURCE_LIMIT"; resource: CloneResource; limit: number; observed: number };
 
 export type CloneResource = "scratch_blocks" | "scratch_inodes" | "network_bytes";

@@ -48,8 +48,7 @@ npm run selftest
 npm run detect -- --detector lockbud-stable --input <dir> --output <dir>
 npm run detect -- --detector pecatch       --input <dir> --output <dir> [--checkers a,b,c]
 
-# public GitHub repository URL (shallow clone; source removed after scan)
-npm run scan-repo -- --repo-url https://github.com/OWNER/REPO --detector pecatch --output <new-dir>
+# public GitHub repository URL scans are currently disabled; see below
 
 # full suite (sandbox probes + detector e2e on fixtures)
 npm test
@@ -61,22 +60,21 @@ output dir; raw detector reports are kept alongside as evidence.
 
 ### Scanning a public GitHub repository URL
 
-`npm run scan-repo` accepts only `https://github.com/OWNER/REPO` and the same
-URL with a `.git` suffix. It rejects credentials, alternate hosts, ports,
-queries, fragments, and malformed paths. Acquisition uses a depth-1,
-single-branch HTTPS clone with submodules and tags disabled, runs the existing
-detector pipeline against the cloned source, and removes its private temporary
-checkout on both success and failure. The output directory must be new or
-empty; a non-empty directory is rejected so files from an earlier run cannot
-be mistaken for current evidence. Run metadata records the canonical repo URL,
-resolved commit, clone depth, and that source was not retained.
+The URL parser accepts only `https://github.com/OWNER/REPO` and the same URL
+with a `.git` suffix. It rejects credentials, alternate hosts, ports, queries,
+fragments, and malformed paths. The command is currently disabled for
+repository acquisition: a trusted quota-enforcing adapter must first be
+implemented and wired into the service boundary. Merely configuring a clone
+command or supplying a `CloneRunner` does not provide disk or network
+enforcement. Until that adapter exists, the CLI fails closed before cloning.
+When enabled, the intended flow will use a depth-1, single-branch HTTPS clone
+with submodules and tags disabled, run the existing detector pipeline, and
+attempt to remove its private checkout on success or failure; cleanup failures
+are reported. The output directory must be new or empty. No arbitrary URL
+cloning is supported.
 
-```bash
-npm run scan-repo -- --repo-url https://github.com/OWNER/REPO \
-  --detector pecatch --output ./scan-output
-```
-
-For peCatch, pass `--checkers a,b,c` to select checkers.
+The former CLI syntax will become available after that adapter is integrated.
+For peCatch, the planned CLI accepts `--checkers a,b,c` to select checkers.
 
 Exit codes are `0` for a clean completed scan, `1` when findings are present,
 and `2` for invalid input, acquisition/analysis errors, or an incomplete run.
@@ -85,12 +83,15 @@ This entry point does not elevate detector results: unverified findings remain
 findings. The repo URL path does not implicitly run the ERC-20 ABI screen.
 Focused offline tests run with `npm run test:repo-url`.
 
-**Deployment blocker:** this CLI prototype does not enforce hard aggregate
-disk or network-transfer limits for a clone. Do not expose arbitrary public
-repository URLs until the deployment provides a per-job scratch filesystem
-quota and cumulative network-byte budget. A quota/budget failure must record
-`ACQUISITION_FAILED/RESOURCE_LIMIT`, exit with code `2`, clean the scratch
-directory, and never invoke a detector on partial source.
+**Fail-closed deployment gate:** the CLI has no implemented and wired
+quota-enforcing acquisition adapter, so repository URL scans fail with
+`ACQUISITION_FAILED/QUOTA_UNAVAILABLE` before cloning, write empty findings,
+clean the scratch directory, and exit with code `2`. The low-level
+`gitCloneRunner` remains a low-level development primitive; the production API
+does not accept it. Enabling this entry point requires a trusted adapter that
+enforces hard aggregate disk and network-transfer limits and is explicitly
+wired into the production boundary. Only a positively identified enforcement
+event is reported as `RESOURCE_LIMIT`.
 
 ## Findings schema (v1)
 

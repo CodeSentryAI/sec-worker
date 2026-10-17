@@ -8,9 +8,10 @@ import { CloneError, classifyCloneProcessFailure, cloneArgv, cloneEnv } from "..
 import {
   OutputOverlapError,
   StaleOutputError,
-  scanRepoUrl,
-  type ScanRepoOptions,
-} from "../src/scan_repo_url.ts";
+  scanRepoUrlCore as scanRepoUrl,
+  type InternalScanRepoOptions as ScanRepoOptions,
+} from "../src/internal/scan_repo_url_core.ts";
+import { scanRepoUrl as scanRepoUrlPublic } from "../src/scan_repo_url.ts";
 import type { Finding } from "../src/types.ts";
 
 const GOOD_URL = "https://github.com/acme/token.git";
@@ -240,6 +241,88 @@ test("explicit resource-limited partial clone fails closed and never invokes det
     assert.equal(metadata.source.sourceRemoved, true);
     assert.equal(metadata.source.sourceRetained, false);
     assert.deepEqual(metadata.sourceCleanup, { status: "removed" });
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("missing quota-enforcing clone provider fails closed before detector and cleans scratch", async () => {
+  const root = await tempRoot();
+  try {
+    let detectorCalled = false;
+    const opts = options(root, {
+      runPipeline: async () => {
+        detectorCalled = true;
+        throw new Error("detector must not run without quota enforcement");
+      },
+    });
+    delete opts.cloneRunner;
+
+    await assert.rejects(scanRepoUrl(opts), /quota-enforcing acquisition provider is not configured/);
+    assert.equal(detectorCalled, false);
+    assert.deepEqual(await readdir(opts.scratchRoot!), []);
+    const findings = JSON.parse(await readFile(path.join(opts.outputDir, "findings.json"), "utf8"));
+    assert.deepEqual(findings, []);
+    const metadata = JSON.parse(await readFile(path.join(opts.outputDir, "run.json"), "utf8"));
+    assert.equal(metadata.status, "ACQUISITION_FAILED");
+    assert.equal(metadata.reason, "QUOTA_UNAVAILABLE");
+    assert.equal(metadata.ok, false);
+    assert.equal(metadata.exitCode, 2);
+    assert.equal(metadata.source.commit, null);
+    assert.equal(metadata.source.depth, null);
+    assert.equal(metadata.source.submodules, null);
+    assert.equal(metadata.source.sourceRemoved, true);
+    assert.equal(metadata.source.sourceRetained, false);
+    assert.deepEqual(metadata.sourceCleanup, { status: "removed" });
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("public API rejects an extra bare cloneRunner before invoking it", async () => {
+  const root = await tempRoot();
+  try {
+    let cloneCalled = false;
+    const opts = {
+      repoUrl: GOOD_URL,
+      outputDir: path.join(root, "out"),
+      scratchRoot: path.join(root, "scratch"),
+      detectorId: "pecatch",
+      cloneRunner: async () => {
+        cloneCalled = true;
+        throw new Error("bare cloneRunner must never execute");
+      },
+    };
+
+    await assert.rejects(
+      scanRepoUrlPublic(opts as Parameters<typeof scanRepoUrlPublic>[0]),
+      /does not accept internal option: cloneRunner/,
+    );
+    assert.equal(cloneCalled, false);
+    assert.equal(await readdir(root).then((entries) => entries.length), 0);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("public API remains fail-closed and writes quota-unavailable evidence without an adapter", async () => {
+  const root = await tempRoot();
+  try {
+    const opts = {
+      repoUrl: GOOD_URL,
+      outputDir: path.join(root, "out"),
+      scratchRoot: path.join(root, "scratch"),
+      detectorId: "pecatch",
+    };
+    await assert.rejects(scanRepoUrlPublic(opts), /quota-enforcing acquisition provider is not configured/);
+    assert.deepEqual(await readdir(opts.scratchRoot), []);
+    assert.deepEqual(JSON.parse(await readFile(path.join(opts.outputDir, "findings.json"), "utf8")), []);
+    const run = JSON.parse(await readFile(path.join(opts.outputDir, "run.json"), "utf8"));
+    assert.equal(run.status, "ACQUISITION_FAILED");
+    assert.equal(run.reason, "QUOTA_UNAVAILABLE");
+    assert.equal(run.exitCode, 2);
+    assert.equal(run.source.sourceRemoved, true);
+    assert.deepEqual(run.sourceCleanup, { status: "removed" });
   } finally {
     await rm(root, { recursive: true, force: true });
   }
