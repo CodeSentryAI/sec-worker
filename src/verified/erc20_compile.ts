@@ -22,6 +22,7 @@ export interface Erc20CompileMetadata {
   input_artifact?: string;
   output_artifact?: string;
   version_artifact?: string;
+  provenance_artifact?: string;
   source_count: number;
   exit_code: number | null;
   signal: string | null;
@@ -39,6 +40,11 @@ export interface Erc20CompileOutcome {
 
 function sha256(value: Buffer | string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function compilerWallSeconds(requested: number | undefined): number {
+  if (requested === undefined || Number.isNaN(requested)) return DEFAULT_LIMITS.solidity.wallSeconds;
+  return Math.max(1, Math.min(DEFAULT_LIMITS.solidity.wallSeconds, Math.floor(requested)));
 }
 
 function jsonObject(value: unknown): JsonObject | undefined {
@@ -133,16 +139,20 @@ export async function runErc20AbiCompile(
   sourceRoot: string,
   target: Erc20AbiTarget,
   outputDir: string,
+  // Test-only wall-time reducer. It is clamped to [1, the 600s production maximum].
+  options: { maxWallSeconds?: number } = {},
 ): Promise<Erc20CompileOutcome> {
   const runId = randomUUID();
   const inputArtifact = `erc20-${runId}-solc-input.json`;
   const outputArtifact = `erc20-${runId}-solc-output.json`;
   const versionArtifact = `erc20-${runId}-solc-version.txt`;
+  const provenanceArtifact = `erc20-${runId}-provenance.json`;
   let sourceCount = 0;
   let exitCode: number | null = null;
   let timedOut = false;
   let truncated = false;
   let durationMs = 0;
+  let findings: Finding[] = [];
   const metadata: Erc20CompileMetadata = {
     status: "indeterminate",
     reason: "compiler did not produce complete evidence",
@@ -150,6 +160,7 @@ export async function runErc20AbiCompile(
     input_artifact: inputArtifact,
     output_artifact: outputArtifact,
     version_artifact: versionArtifact,
+    provenance_artifact: provenanceArtifact,
     source_count: 0,
     exit_code: null,
     signal: null,
@@ -196,7 +207,10 @@ export async function runErc20AbiCompile(
       env: {},
       cwd: "/work",
       network: "none",
-      limits: { ...DEFAULT_LIMITS.solidity },
+      limits: {
+        ...DEFAULT_LIMITS.solidity,
+        wallSeconds: compilerWallSeconds(options.maxWallSeconds),
+      },
     });
     exitCode = sandboxResult.exitCode;
     metadata.signal = sandboxResult.signal;
@@ -242,32 +256,34 @@ export async function runErc20AbiCompile(
         if (checked.status === "complete") {
           metadata.status = "complete";
           delete metadata.reason;
-          return {
-            findings: promoteErc20AbiFindings(checked.findings, metadata),
-            metadata,
-          };
+          findings = promoteErc20AbiFindings(checked.findings, metadata);
         }
-        if (checked.status === "not-applicable") {
+        else if (checked.status === "not-applicable") {
           metadata.status = "not-applicable";
           metadata.reason = checked.reason;
-          return { findings: [], metadata };
         }
-        metadata.reason = checked.reason;
-        return { findings: [], metadata };
+        else metadata.reason = checked.reason;
       }
     }
-    return { findings: [], metadata };
   } catch (error) {
     metadata.reason = error instanceof Error ? error.message : String(error);
-    return { findings: [], metadata };
+    metadata.status = "indeterminate";
+    findings = [];
   } finally {
-    // Persist metadata even on failure; raw compiler bytes remain under outputDir.
+    // Complete/Verified is valid only when this provenance record is durable.
     metadata.source_count = sourceCount;
     metadata.exit_code = exitCode;
     metadata.timed_out = timedOut;
     metadata.truncated = truncated;
     metadata.duration_ms = durationMs;
-    await writeFile(path.join(outputDir, `erc20-${runId}-provenance.json`), JSON.stringify(metadata, null, 2)).catch(() => {});
+    try {
+      await writeFile(path.join(outputDir, provenanceArtifact), `${JSON.stringify(metadata, null, 2)}\n`, { flag: "wx" });
+    } catch (error) {
+      metadata.status = "indeterminate";
+      metadata.reason = `failed to persist compiler provenance: ${error instanceof Error ? error.message : String(error)}`;
+      findings = [];
+    }
     await rm(tempRoot, { recursive: true, force: true }).catch(() => {});
   }
+  return { findings, metadata };
 }

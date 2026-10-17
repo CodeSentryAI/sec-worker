@@ -38,7 +38,7 @@ function compilation(abi: unknown[], astMembers: unknown[] = []) {
   return {
     input: { sources: { [TARGET.source_path]: { content: source } } },
     output: {
-      errors: [],
+      errors: [] as unknown[],
       contracts: { [TARGET.source_path]: { [TARGET.contract_name]: { abi, evm: { bytecode: { object: "60006000f3" }, deployedBytecode: { object: "6000f3" } } } } },
       sources: {
         [TARGET.source_path]: {
@@ -69,6 +69,30 @@ test("ERC-20 required ABI surface passes with constructors and source locations"
   const result = checkErc20Abi(input, output, TARGET, "0.8.28");
   assert.equal(result.status, "complete");
   assert.equal(result.findings.length, 0);
+});
+
+test("malformed solc errors field or diagnostic entries make the ABI result indeterminate", () => {
+  for (const errors of [
+    { severity: "error", message: "not an array" },
+    [{ severity: "error" }],
+    ["not a diagnostic"],
+  ]) {
+    const { input, output } = compilation(completeAbi);
+    output.errors = errors;
+    const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+    assert.equal(result.status, "indeterminate");
+    assert.deepEqual(result.findings, []);
+    if (result.status === "indeterminate") assert.match(result.reason, /malformed/);
+  }
+});
+
+test("valid solc error diagnostics remain indeterminate", () => {
+  const { input, output } = compilation(completeAbi);
+  output.errors = [{ severity: "error", component: "general", message: "compile failed", formattedMessage: "Error: compile failed" }];
+  const result = checkErc20Abi(input, output, TARGET, "0.8.28");
+  assert.equal(result.status, "indeterminate");
+  assert.deepEqual(result.findings, []);
+  if (result.status === "indeterminate") assert.match(result.reason, /compilation errors/);
 });
 
 test("missing ABI methods and omitted event declarations remain Signals before compiler integration", () => {

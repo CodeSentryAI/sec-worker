@@ -146,7 +146,20 @@ export function checkErc20Abi(
     return { status: "indeterminate", findings: [], reason: "input/output source paths differ" };
   }
 
+  if (outObj && "errors" in outObj && !Array.isArray(outObj.errors)) {
+    return { status: "indeterminate", findings: [], reason: "solc output errors field is malformed" };
+  }
   const errors = Array.isArray(outObj?.errors) ? outObj.errors : [];
+  if (errors.some((item) => {
+    const error = object(item);
+    return !error
+      || !["warning", "error"].includes(String(error.severity))
+      || typeof error.message !== "string"
+      || typeof error.formattedMessage !== "string"
+      || typeof error.component !== "string";
+  })) {
+    return { status: "indeterminate", findings: [], reason: "solc output contains malformed compiler diagnostics" };
+  }
   if (errors.some((item) => object(item)?.severity === "error")) {
     return { status: "indeterminate", findings: [], reason: "solc output contains compilation errors" };
   }

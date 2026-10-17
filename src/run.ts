@@ -98,7 +98,7 @@ async function main(): Promise<void> {
     signalCount: outcome.findings.filter((f) => f.trust_tier === "signal").length,
     reportPath: outcome.reportPath,
     erc20Abi: erc20AbiMetadata,
-    durationMs,
+    durationMs: runStatus.durationMs,
     finishedAt: new Date().toISOString(),
   };
   await writeFile(path.join(outputAbs, "run.json"), JSON.stringify(runMeta, null, 2));
